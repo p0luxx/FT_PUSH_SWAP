@@ -15,6 +15,10 @@
 
 # include <unistd.h>
 # include <stdint.h>
+# include <stddef.h>
+# include <stdlib.h>
 
 int	ft_is_num(int c);
+int	ft_atoi(char *s);
+int	*ft_make_matrix(char *str);
 #endif
