@@ -6,7 +6,7 @@
 /*   By: smilitar && gorkgall                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 15:30:54 by smilitar          #+#    #+#             */
-/*   Updated: 2026/04/24 10:47:05 by gorkgall         ###   ########.fr       */
+/*   Updated: 2026/04/27 12:49:49 by gorkgall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,40 +15,37 @@
 int	main(int argc, char **argv)
 {
 	char	*selector;
-	int		**matrix;
+	int		*matrix;
 
 	if (argc <= 1)
 		exit(1);
 	else if (argc == 2)
 	{
-		// selector = NULL;
-		// checkear: son caracteres numericos? crear funciom ft_atoi_check(argv[1]);
-			// if true
-				// matrix = split_int(argv[1], space);
-			//else
-				//exit (-1);
+		selector = NULL;
+		if (ft_is_num(argv[1]) // cambiar mas adelante el nombre de la funcion por ft_is_valid_input
+			matrix = ft_make_matrix(argv[1]);
+		else
+			exit(-1);
 	}
 	else if (argc >= 3)
 	{
-		// selector = argv[2] 
-		// checkear: son caracteres numericos? crear funcion ft_atoi_check(argv[1]);
-		// if true:
-			// matrix = split_int(argv[1], space);
-		//else
-			//exit (-1);
+		selector = argv[2];
+		if (ft_is_num(argv[1])
+				matrix = ft_make_matrix(argv[1]);
+		else
+			exit (-1);
 	}
-	// crear funcion para checkear valores unicos
-	if (//valores repetidos)
+	if (ft_is_repeat_val(matrix))
 	{
-		exit(-1);
 		free(matrix);
+		exit(-8);
 	}
 	else
 	{
 		if (matrix && selector)
 		{
 			//crear funcion con argumento selector que decida el algoritmo
-			//ex: ft_select_algorithm(matrix, selector);
+			////ex: ft_select_algorithm(matrix, selector);
 		}
 		else if(matrix && !selector)
 		{
@@ -57,4 +54,6 @@ int	main(int argc, char **argv)
 		else
 			exit(8);
 	}
+	free(matrix);
+	return (0);
 }

@@ -6,11 +6,24 @@
 /*   By: gorkgall <gorkgall@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 14:30:25 by gorkgall          #+#    #+#             */
-/*   Updated: 2026/04/24 15:29:50 by gorkgall         ###   ########.fr       */
+/*   Updated: 2026/04/27 12:36:24 by gorkgall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_is_num(int c)
+int	ft_is_num(char	*str)
 {
-	return (c >= '0' && c <= '9');
+	int	i;
+	int	flag;
+
+	i = 0;
+	flag = 0;
+	while (str[i])
+	{
+		if ((str[i] >= '0' && str[i] <= '9') || str[i] == 32)
+			flag = 1;
+		else
+			flag = 0;
+		i++;
+	}
+	return (flag);
 }
