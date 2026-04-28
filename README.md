@@ -1,0 +1,5 @@
+paso 1: plantarnos el proyecto(gorkgall, smilitar)
+paso 2: crear pseudocodigo para el main(smilitar)
+paso 3: crear las validaciones de la matriz(gorkgall)
+paso 4: plantearnos que algoritmos usar y como(gorkgall, smilitar)
+paso 5: integrar las validaciones en el main, crear los errores, reorganizar ficheros existentes, pasar pruebas de las validaciones, pasar norminette(smilitar)

@@ -1,34 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_repeat_val.c                                 :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gorkgall <gorkgall@student.42barcelon      +#+  +:+       +#+        */
+/*   By: smilitar <smilitar@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/27 12:44:03 by gorkgall          #+#    #+#             */
-/*   Updated: 2026/04/27 12:50:24 by gorkgall         ###   ########.fr       */
+/*   Created: 2026/04/27 16:30:40 by smilitar          #+#    #+#             */
+/*   Updated: 2026/04/27 16:32:48 by smilitar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_is_repeat_val(int *matrix)
-{
-	int	i;
-	int	j;
-	int	flag;
+#include "push_swap.h"
 
-	i = 0;
-	j = 0;
-	flag = 0;
-	while (matrix[i])
-	{
-		j = 0;
-		while(matrix[j])
-		{
-			if (matrix[i] == matrix[j])
-				flag = 1;
-			j++;
-		}
-		i++;
-	}
-	return (flag);
+void	ft_error(int d)
+{
+	if (d == 1)
+		write(2, "Error\n", 6);
 }

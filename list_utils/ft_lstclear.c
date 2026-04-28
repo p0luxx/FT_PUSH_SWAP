@@ -1,38 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_check_digit.c                                   :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gorkgall <gorkgall@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/24 11:37:33 by gorkgall          #+#    #+#             */
-/*   Updated: 2026/04/24 14:13:33 by gorkgall         ###   ########.fr       */
+/*   Created: 2026/04/16 10:59:00 by gorkgall          #+#    #+#             */
+/*   Updated: 2026/04/20 10:18:42 by gorkgall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "push_swap.c"
-#include <stddef.h>
-#include <stdlib.h>
-int	ft_check_argv(char *s)
-{
-	size_t	i;
+#include "libft.h"
 
-	i = 0;
-	while (s[i])
-	{
-		if ((s[i] >= '0' && s[i] <= '9'))
-			i++;
-		else if (s[i] == '-' || s[i] == '+' || s[i] == 32)
-			i++;
-		else
-			return (0);
-	}
-	return (1);
-}
 /*
-#include <stdio.h>
-int	main(int argc, char **argv)
+static	void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	printf("%d\n", ft_check_argv(argv[1]));
-	return (0);
+	if (!lst || !del)
+		return ;
+	del(lst -> content);
+	free(lst);
 }*/
+
+void	ft_lstclear(t_list **lst, void (*del)(void *))
+{
+	t_list	*aux;
+
+	if (!lst || !del || !*lst)
+		return ;
+	while (*lst)
+	{
+		aux = (*lst)-> next;
+		ft_lstdelone(*lst, del);
+		*lst = aux;
+	}
+}

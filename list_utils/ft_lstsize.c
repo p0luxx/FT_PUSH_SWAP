@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_num.c                                        :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gorkgall <gorkgall@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/24 14:30:25 by gorkgall          #+#    #+#             */
-/*   Updated: 2026/04/27 12:36:24 by gorkgall         ###   ########.fr       */
+/*   Created: 2026/04/16 09:22:48 by gorkgall          #+#    #+#             */
+/*   Updated: 2026/04/16 09:31:13 by gorkgall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_is_num(char	*str)
-{
-	int	i;
-	int	flag;
+#include "libft.h"
 
-	i = 0;
-	flag = 0;
-	while (str[i])
+int	ft_lstsize(t_list *lst)
+{
+	int	size;
+
+	size = 0;
+	while (lst)
 	{
-		if ((str[i] >= '0' && str[i] <= '9') || str[i] == 32)
-			flag = 1;
-		else
-			flag = 0;
-		i++;
+		size++;
+		lst = lst -> next;
 	}
-	return (flag);
+	return (size);
 }
