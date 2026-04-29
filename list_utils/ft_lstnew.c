@@ -10,14 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-t_node	*ft_lstnew(int *content)
+t_node	*ft_lstnew(int value)
 {
-	t_node	*new_list;
+	t_node	*new_node;
 
-	new_list = malloc(sizeof(t_node));
-	if (!new_list)
+	new_node = malloc(sizeof(t_node));
+	if (!new_node)
 		return (NULL);
-	new_list -> content = content;
-	new_list -> next = NULL;
-	return (new_list);
+	new_node -> value = value;
+	new_node -> norm = 0;
+	new_node -> target = 0;
+	new_node -> cost_a = 0;
+	new_node -> cost_b = 0;
+	new_node -> prev = NULL;
+	new_node -> next = NULL;
+	return (new_node);
 }

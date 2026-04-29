@@ -18,10 +18,16 @@ void	ft_lstadd_back(t_node **lst, t_node *new)
 	if (!lst || !new)
 		return ;
 	if (*lst == NULL)
+	{
 		*lst = new;
+		new -> prev = NULL;
+		new -> next = NULL;
+	}
 	else
 	{
 		last_node = ft_lstlast(*lst);
 		last_node -> next = new;
+		new -> prev = last_node;
+		new -> next = NULL;
 	}
 }
