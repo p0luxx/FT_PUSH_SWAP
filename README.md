@@ -21,9 +21,18 @@ paso 5: integrar las validaciones en el main, crear los errores, reorganizar fic
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├─ `ft_is_flag()` | `ft_flags.c` | ✅ hecho | 📏 ✓ | 👤 smilitar |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├─ `ft_select_algorithm()` | `ft_flags.c` | ✅ hecho | 📏 ✓ | 👤 smilitar |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├─ `ft_validate_single_algorithm()` | `ft_flags.c` | ✅ hecho | ❓ | 👤 smilitar |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├─ `ft_make_map()` | `ft_make_map.c` | ✅ hecho | ❓ | 👤 gorka |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├─ `ft_lstnew() && ft_last_back() && ft_last_front` | `varios .c` | ✅ hecho | ❓ | 👤 gorka |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├─ `ft_handle_arg()` | `ft_validate_inputs.c` | ❌ pendiente | ❓ | 👤 gorka |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;└─ ... | ... | ... | ... |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ `ft_has_duplicates()` | `ft_validate_inputs.c` | ❌ pendiente | ❓ | 👤 smilitar |
+
+---
+
+
+### TESTS
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├─ `BATERIA DE TESTS CON CASOS LIMITE` | `src/parsing_and_input_tests.c` | ❌ pendiente | ❓ | 👤 gorka |
+
 
 ---
 
@@ -33,7 +42,7 @@ paso 5: integrar las validaciones en el main, crear los errores, reorganizar fic
 |---|---|---|
 | `push_swap.c` | ⚠️ parcial | 📏 norm ✓ | ❓ norm —
 | `ft_flags.c` | ✅ hecho | 📏 norm ✓ |
-| `ft_validate_inputs.c` | ❌ pendiente | 
+| `ft_validate_inputs.c` | ❌ pendiente |
 | `ft_utils.c` | ⚠️ parcial | 📏 norm ✓ |
 | `ft_error.c` | ✅ hecho | 📏 norm ✓ |
 | `push_swap.h` | ⚠️ parcial | 📏 norm ✓ |
