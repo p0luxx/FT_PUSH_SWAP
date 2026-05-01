@@ -42,12 +42,62 @@ void	ft_parse_argv(int argc, char **argv, t_flags *f, t_stack **a)
 		ft_error(1);*/
 }
 
-//ft_is_flag
-//ft_handle_arg
-/*
-	si hay numeros como argumentos, leerlos y rellenar con ft_atoi el stack a
+size_t	ft_matrix_size(int *matrix)
+{
+	size_t	i;
 
-	si hay un string, variable o archivo, 
-	leerlo y hacer ft_strtim y rellenar con ft_atoi el stack a
-*/
-//ft_has_duplicates
+	i = 0;
+	while (matrix[i] != NULL)
+		i++;
+	return (i)
+}
+
+t_node	*ft_handle_arg(char *argv, t_stack **a)
+{
+	size_t	i;
+	size_t	flag;
+	size_t	size;
+	int		*matrix;
+	int		temp;
+	t_node	**new_list;
+
+	i = 0;
+	flag = 0;
+	martrix = NULL;
+	new_list = NULL;
+	size = 0;
+	temp = 0;
+	while (argv[i++])
+	{
+		if (argv[i] == 32)
+		{
+			flag = 1;
+			break;
+		}
+	}
+
+	if (flag)
+	{
+		matrix = ft_make_matrix(argv);
+		if (!matrix)
+		{
+			// crear funcion para liberar array de enteros
+			return ;
+		}
+		size = ft_matrix_size(matrix);
+		ft_make_map(matrix, new_list, size);
+		(*a) -> top = new_list;
+	}
+	else
+	{
+		temp = ft_atoi(argv);
+		new_list = ft_lstnew(temp);
+		if (!new_list)
+		{
+			free(new_list);
+			return ;
+		}
+		ft_lstaddback(a, new_list);
+	}
+	return (new_list);
+}

@@ -74,11 +74,11 @@ int	ft_is_num(char	*str)
 			return (0);
 		i++;
 	}
-	
+
 	return (1);
 }
 
-int	ft_is_repeat_val(int *matriz, int size)
+int	ft_is_repeat_val(int *matriz)
 {
 	int	i;
 	int	j;

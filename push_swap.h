@@ -27,8 +27,8 @@ typedef struct s_node
 	int				target;/* posición destino en stack ordenado */
 	int				cost_a;/* rotaciones necesarias en a */
 	int				cost_b;/* rotaciones necesarias en b */
-	struct s_node	*next;
-	struct s_node	*prev;
+	s_node	*next;
+	s_node	*prev;
 }	t_node;
 
 /* ── stack (lista doblemente enlazada) ── */
