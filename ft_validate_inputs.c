@@ -32,72 +32,63 @@ void	ft_parse_argv(int argc, char **argv, t_flags *f, t_stack **a)
 		ft_validate_single_algorithm(argv[1], argv[2], f);
 	if (i >= argc)
 		ft_error(1);
-	(void)a;
-	/*while (i < argc)
-	{
-		ft_handle_arg(argv[i], a);
-		i++;
-	}
+	while (i < argc)
+		ft_handle_arg(argv[i++], a);
 	if (ft_has_duplicates(*a))
-		ft_error(1);*/
+		ft_error(1);
 }
 
-size_t	ft_matrix_size(int *matrix)
+static void	ft_add_single(char *arg, t_stack **a)
 {
-	size_t	i;
+	int		value;
+	t_node	*node;
+
+	value = ft_atoi(arg);
+	node = ft_lstnew(value);
+	if (!node)
+		ft_error(1);
+	ft_lstaddback(a, node);
+}
+
+void	ft_free_split(char **split)
+{
+	int	i;
 
 	i = 0;
-	while (matrix[i] != NULL)
+	while (split[i])
+	{
+		free(split[i]);
 		i++;
-	return (i)
+	}
+	free(split);
 }
 
-t_node	*ft_handle_arg(char *argv, t_stack **a)
+static void	ft_add_split(char *arg, t_stack **a)
 {
-	size_t	i;
-	size_t	flag;
-	size_t	size;
-	int		*matrix;
-	int		temp;
-	t_node	**new_list;
+	char	**tokens;
+	int		i;
+	t_node	*node;
 
+	tokens = ft_split(arg, ' ');
+	if (!tokens)
+		ft_error(1);
 	i = 0;
-	flag = 0;
-	martrix = NULL;
-	new_list = NULL;
-	size = 0;
-	temp = 0;
-	while (argv[i++])
+	while (tokens[i])
 	{
-		if (argv[i] == 32)
-		{
-			flag = 1;
-			break;
-		}
+		node = ft_lstnew(ft_atoi(tokens[i]));
+		if (!node)
+			ft_error(1);
+		ft_lstaddback(a, node);
+		i++;
 	}
+	ft_free_split(tokens);
+}
 
-	if (flag)
-	{
-		matrix = ft_make_matrix(argv);
-		if (!matrix)
-		{
-			// crear funcion para liberar array de enteros
-			return ;
-		}
-		size = ft_matrix_size(matrix);
-		ft_make_map(matrix, new_list, size);
-		(*a) -> top = new_list;
-	}
+t_node	*ft_handle_arg(char *arg, t_stack **a)
+{
+	if (ft_strchr(arg, ' '))
+		ft_add_split(arg, a);
 	else
-	{
-		temp = ft_atoi(argv);
-		new_list = ft_lstnew(temp);
-		if (!new_list)
-		{
-			free(new_list);
-			return ;
-		}
-		ft_lstaddback(a, new_list);
-	}
-	return (new_list);
+		ft_add_single(arg, a);
+	return (NULL);
 }
