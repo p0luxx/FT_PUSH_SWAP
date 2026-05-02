@@ -17,7 +17,7 @@ void	ft_lstadd_front(t_node **lst, t_node *node)
 	if (!lst || !node)
 		return ;
 	node -> next = *lst;
-	*lst -> prev = node;
+	(*lst)-> prev = node;
 	node -> prev = NULL;
 	*lst = node;
 }

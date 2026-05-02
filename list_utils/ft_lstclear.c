@@ -12,16 +12,16 @@
 
 #include "push_swap.h"
 
-void	ft_lstclear(t_node **lst, void (*del)(void *))
+void	ft_lstclear(t_node **lst)
 {
 	t_node	*aux;
 
-	if (!lst || !del || !*lst)
+	if (!lst || !*lst)
 		return ;
 	while (*lst)
 	{
 		aux = (*lst)-> next;
-		ft_lstdelone(*lst, del);
+		ft_lstdelone(*lst);
 		*lst = aux;
 	}
 }

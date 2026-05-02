@@ -1,21 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_num.c                                        :+:      :+:    :+:   */
+/*   ft_has_duplicates.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gorkgall <gorkgall@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/02 13:04:52 by gorkgall          #+#    #+#             */
-/*   Updated: 2026/05/02 14:23:13 by gorkgall         ###   ########.fr       */
+/*   Created: 2026/05/02 13:55:52 by gorkgall          #+#    #+#             */
+/*   Updated: 2026/05/02 14:23:01 by gorkgall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_is_num(char c)
+int	ft_has_duplicates(t_stack *a)
 {
-	if ((c >= '0' && c <= '9') || c == 32)
-		return (0);
-	else
-		return (1);
+	t_node	*current;
+	t_node	*check;
+
+	current = a->top;
+	while (current)
+	{
+		check = current->next;
+		while (check)
+		{
+			if (current->value == check->value)
+				return (1);
+			check = check->next;
+		}
+		current = current->next;
+	}
+	return (0);
 }

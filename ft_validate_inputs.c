@@ -47,7 +47,8 @@ static void	ft_add_single(char *arg, t_stack **a)
 	node = ft_lstnew(value);
 	if (!node)
 		ft_error(1);
-	ft_lstaddback(a, node);
+	ft_lstadd_back(&(*a)->top, node);
+	(*a)->size++;
 }
 
 void	ft_free_split(char **split)
@@ -77,18 +78,21 @@ static void	ft_add_split(char *arg, t_stack **a)
 	{
 		node = ft_lstnew(ft_atoi(tokens[i]));
 		if (!node)
+		{
+			ft_free_split(tokens);
 			ft_error(1);
-		ft_lstaddback(a, node);
+		}
+		ft_lstadd_back(&(*a)->top, node);
+		(*a)->size++;
 		i++;
 	}
 	ft_free_split(tokens);
 }
 
-t_node	*ft_handle_arg(char *arg, t_stack **a)
+void	ft_handle_arg(char *arg, t_stack **a)
 {
 	if (ft_strchr(arg, ' '))
 		ft_add_split(arg, a);
 	else
 		ft_add_single(arg, a);
-	return (NULL);
 }

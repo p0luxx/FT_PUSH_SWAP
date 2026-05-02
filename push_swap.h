@@ -10,6 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gorkgall <gorkgall@student.42barcelon      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/24 12:03:31 by gorkgall          #+#    #+#             */
+/*   Updated: 2026/04/27 12:48:39 by gorkgall         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 /* push_swap.h */
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
@@ -27,8 +39,8 @@ typedef struct s_node
 	int				target;/* posición destino en stack ordenado */
 	int				cost_a;/* rotaciones necesarias en a */
 	int				cost_b;/* rotaciones necesarias en b */
-	s_node			*next;
-	s_node			*prev;
+	struct s_node	*next;
+	struct s_node	*prev;
 }	t_node;
 
 /* ── stack (lista doblemente enlazada) ── */
@@ -66,5 +78,26 @@ int		ft_is_flag(char *s);
 /* ── parse arguments ── */
 
 void	ft_parse_argv(int argc, char **argv, t_flags *f, t_stack **a);
+void	ft_handle_arg(char *arg, t_stack **a);
+int		ft_has_duplicates(t_stack *a);
+
+/* ── list utilities ── */
+
+t_node	*ft_lstnew(int content);
+void	ft_lstadd_back(t_node **lst, t_node *new);
+void	ft_lstadd_front(t_node **lst, t_node *new);
+t_node	*ft_lstlast(t_node *lst);
+int		ft_lstsize(t_node *lst);
+void	ft_lstdelone(t_node *lst);
+void	ft_lstclear(t_node **lst);
+
+/* ── string utilities ── */
+
+char	**ft_split(char const *s, char c);
+int		ft_atoi(char *s);
+int		ft_is_num(char c);
+void	ft_free_split(char **split);
+char	*ft_strchr(const char *s, int c);
+char	*ft_substr(const char *s, unsigned int start, size_t len);
 
 #endif

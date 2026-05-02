@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_flags.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smilitar <smilitar@student.42barcelon      +#+  +:+       +#+        */
+/*   By: smilitar && gorkgall                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 21:48:04 by smilitar          #+#    #+#             */
 /*   Updated: 2026/04/27 21:48:06 by smilitar         ###   ########.fr       */

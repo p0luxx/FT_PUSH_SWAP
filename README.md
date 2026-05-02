@@ -323,5 +323,5 @@ Tests aún por implementar (Fase 5). Placeholder para casos límite:
 
 ---
 
-**Última actualización:** Mayo 2026
+**Última actualización:** 2 de Mayo de 2026
 **Estado actual:** Fase 1 ✅ Completa
