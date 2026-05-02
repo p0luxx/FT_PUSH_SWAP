@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*   ft_is_num.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smilitar <smilitar@student.42barcelon      +#+  +:+       +#+        */
+/*   By: gorkgall <gorkgall@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/27 19:58:08 by smilitar          #+#    #+#             */
-/*   Updated: 2026/04/27 19:58:15 by smilitar         ###   ########.fr       */
+/*   Created: 2026/05/02 13:04:52 by gorkgall          #+#    #+#             */
+/*   Updated: 2026/05/02 13:05:00 by gorkgall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_is_num(char	*str)
 {
-	if (n == 0)
-		return (0);
-	while (*s1 && (*s1 == *s2) && n > 0 && n != 1)
+	int	i;
+
+	i = 0;
+	while (str[i])
 	{
-		s1++;
-		s2++;
-		n--;
+		if ((str[i] >= '0' && str[i] <= '9') || str[i] == 32)
+			return (0);
+		i++;
 	}
-	return (*(unsigned char *)s1 - *(unsigned char *)s2);
+
+	return (1);
 }
+

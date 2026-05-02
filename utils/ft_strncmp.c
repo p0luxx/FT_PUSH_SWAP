@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smilitar && gorkgall                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/27 16:30:40 by smilitar          #+#    #+#             */
-/*   Updated: 2026/04/27 16:32:48 by smilitar         ###   ########.fr       */
+/*   Created: 2026/04/27 19:58:08 by smilitar          #+#    #+#             */
+/*   Updated: 2026/04/27 19:58:15 by smilitar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_error(int d)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	if (d == 1)
-		write(2, "Error\n", 6);
+	if (n == 0)
+		return (0);
+	while (*s1 && (*s1 == *s2) && n > 0 && n != 1)
+	{
+		s1++;
+		s2++;
+		n--;
+	}
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
