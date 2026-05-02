@@ -6,9 +6,11 @@
 /*   By: gorkgall <gorkgall@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/02 13:04:52 by gorkgall          #+#    #+#             */
-/*   Updated: 2026/05/02 13:05:00 by gorkgall         ###   ########.fr       */
+/*   Updated: 2026/05/02 13:16:38 by gorkgall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "push_swap.h"
 
 int	ft_is_num(char	*str)
 {
@@ -21,7 +23,5 @@ int	ft_is_num(char	*str)
 			return (0);
 		i++;
 	}
-
 	return (1);
 }
-

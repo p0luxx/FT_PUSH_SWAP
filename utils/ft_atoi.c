@@ -6,9 +6,11 @@
 /*   By: gorkgall <gorkgall@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/02 13:03:49 by gorkgall          #+#    #+#             */
-/*   Updated: 2026/05/02 13:03:55 by gorkgall         ###   ########.fr       */
+/*   Updated: 2026/05/02 13:16:29 by gorkgall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "push_swap.h"
 
 int	ft_atoi(char *s)
 {

@@ -32,12 +32,9 @@ int	main(int argc, char **argv)
 	a = NULL;
 	ft_init_flags(&f);
 	ft_parse_argv(argc, argv, &f, &a);
-	// aqui vienen los siguientes 
 	print_flags(&f);
 	return (0);
 }
-
-
 /*
  algoritmos
 --simple    Insertion expectante     O(n²)      fácil de implementar

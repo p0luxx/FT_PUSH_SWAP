@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "push_swap.h"
+
 t_node	*ft_lstmap(t_node *lst, void *(*f)(void *), void (*del)(void *))
 {
 	t_node	*node;

@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "push_swap.h"
+
 void	ft_lstadd_front(t_node **lst, t_node *node)
 {
 	if (!lst || !node)

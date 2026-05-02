@@ -6,11 +6,11 @@
 /*   By: gorkgall <gorkgall@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/02 13:00:02 by gorkgall          #+#    #+#             */
-/*   Updated: 2026/05/02 13:00:11 by gorkgall         ###   ########.fr       */
+/*   Updated: 2026/05/02 13:16:47 by gorkgall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
 static	size_t	ft_count_words(const char *s, char c)
 {

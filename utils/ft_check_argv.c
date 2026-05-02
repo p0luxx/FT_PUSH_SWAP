@@ -6,9 +6,11 @@
 /*   By: gorkgall <gorkgall@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/02 13:04:24 by gorkgall          #+#    #+#             */
-/*   Updated: 2026/05/02 13:04:28 by gorkgall         ###   ########.fr       */
+/*   Updated: 2026/05/02 13:16:34 by gorkgall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "push_swap.h"
 
 int	ft_check_argv(char *s)
 {

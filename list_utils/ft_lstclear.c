@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "push_swap.h"
+
 void	ft_lstclear(t_node **lst, void (*del)(void *))
 {
 	t_node	*aux;
