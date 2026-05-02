@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_validate_inputs.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smilitar <smilitar@student.42barcelon      +#+  +:+       +#+        */
+/*   By: smilitar && gorkgall                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 21:49:07 by smilitar          #+#    #+#             */
 /*   Updated: 2026/04/27 23:03:21 by smilitar         ###   ########.fr       */
