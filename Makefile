@@ -31,7 +31,8 @@ ROOT_SRCS	= push_swap.c \
 LIST_SRCS	= $(addprefix list_utils/, \
 			  ft_lstnew.c ft_lstadd_back.c ft_lstadd_front.c \
 			  ft_lstlast.c ft_lstsize.c ft_lstdelone.c \
-			  ft_lstclear.c ft_lstiter.c ft_init_stack.c)
+			  ft_lstclear.c ft_lstiter.c ft_init_stack.c \
+			  ft_add_node.c)
 
 UTILS_SRCS	= $(addprefix utils/, \
 			  ft_atoi.c ft_split.c ft_strncmp.c \

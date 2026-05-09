@@ -67,9 +67,12 @@ int	ft_is_flag(char *s)
 {
 	if (!s || s[0] != '-' || s[1] != '-')
 		return (0);
-	return (ft_strncmp(s, "--simple", 9) == 0
+	if (ft_strncmp(s, "--simple", 9) == 0
 		|| ft_strncmp(s, "--medium", 9) == 0
 		|| ft_strncmp(s, "--complex", 10) == 0
 		|| ft_strncmp(s, "--adaptive", 11) == 0
-		|| ft_strncmp(s, "--bench", 8) == 0);
+		|| ft_strncmp(s, "--bench", 8) == 0)
+		return (1);
+	ft_error(1);
+	return (0);
 }

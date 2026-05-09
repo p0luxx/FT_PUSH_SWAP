@@ -30,7 +30,7 @@
 # include <unistd.h>
 # include <limits.h>
 # include <stddef.h>
-# include <stdio.h> //////qquitar al entregar??????????????????????????????????????????????????????????????????????????????
+# include <stdio.h>
 
 /* ── nodo de la lista enlazada ── */
 typedef struct s_node
@@ -63,6 +63,14 @@ typedef struct s_flags
 	int	bench;
 }	t_flags;
 
+/* ── flags ── */
+typedef struct s_parse_ctx
+{
+	t_flags	*f;
+	int		flag_count;
+	char	*flag_copy;
+}	t_parse_ctx;
+
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 /* ── handle errors ── */
@@ -78,9 +86,10 @@ int		ft_is_flag(char *s);
 
 /* ── parse arguments ── */
 
+void	ft_handle_arg(char *arg, t_stack **a, t_parse_ctx *ctx);
 void	ft_parse_argv(int argc, char **argv, t_flags *f, t_stack **a);
-void	ft_handle_arg(char *arg, t_stack **a);
 int		ft_has_duplicates(t_stack *a);
+void	ft_add_split(char *arg, t_stack **a, t_parse_ctx *ctx);
 
 /* ── list utilities ── */
 
@@ -92,6 +101,7 @@ int		ft_lstsize(t_node *lst);
 void	ft_lstdelone(t_node *lst);
 void	ft_lstclear(t_node **lst);
 t_stack	*ft_init_stack(char name);
+void	ft_add_node(t_stack **a, int val, char **tokens);
 
 /* ── string utilities ── */
 
@@ -102,6 +112,6 @@ void	ft_free_split(char **split);
 char	*ft_strchr(const char *s, int c);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *src);
-size_t		ft_strlen(const char	*str);
+size_t	ft_strlen(const char	*str);
 
 #endif

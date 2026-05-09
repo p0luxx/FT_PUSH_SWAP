@@ -9,10 +9,8 @@
 /*   Updated: 2026/04/27 23:03:21 by smilitar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "push_swap.h"
-
-//borrrar estoo    sdafaf a fadfafafafafa dfsgddddddddddddddddddddddddddddddddddddddddd
+//borrrar estoo    sdafaf a fadfafafafafa dfsgddddddddddddddddddddddd
 void	ft_print_stack(t_stack *a)
 {
 	t_node	*tmp;
@@ -32,65 +30,28 @@ void	ft_print_stack(t_stack *a)
 	printf("===========================\n");
 }
 
-void	ft_parse_argv(int argc, char **argv, t_flags *f, t_stack **a)
+static void	ft_process_flag(char *token, t_parse_ctx *ctx)
 {
-	int	i;
-	int	flag_count;
-	char	*flag_copy;
-
-	i = 1;
-	flag_count = 0;
-	while (i < argc)
-	{
-		//printf("la i es: %d\n", i);
-		if (ft_is_flag(argv[i]))
-		{
-			flag_count++;
-			if (flag_count > 2)
-				ft_error(1);
-			if (flag_count == 1)
-			{
-				flag_copy = ft_strdup(argv[i]);
-				ft_select_algorithm(argv[i], f);
-			}
-			else if (flag_count == 2)
-			{
-				ft_validate_single_algorithm(flag_copy, argv[i], f);
-				if(ft_strncmp(flag_copy, argv[i], ft_strlen(flag_copy)) == 0)
-					ft_error(1);
-			}
-		}
-		else
-			ft_handle_arg(argv[i], a);
-		i++;
-	}
-	ft_print_stack(*a);
-	if (ft_has_duplicates(*a))
-	{
-		printf("has duplicates");
-		ft_error(1);	
-	}
-}
-
-static void	ft_add_single(char *arg, t_stack **a)
-{
-	int		value;
-	t_node	*node;
-
-	value = ft_atoi(arg);
-	node = ft_lstnew(value);
-	if (!node)
+	ctx->flag_count++;
+	if (ctx->flag_count > 2)
 		ft_error(1);
-	ft_lstadd_back(&(*a)->top, node);
-	(*a)->size++;
+	if (ctx->flag_count == 1)
+	{
+		ctx->flag_copy = ft_strdup(token);
+		ft_select_algorithm(token, ctx->f);
+	}
+	else if (ctx->flag_count == 2)
+	{
+		ft_validate_single_algorithm(ctx->flag_copy, token, ctx->f);
+		if (ft_strncmp(ctx->flag_copy, token, ft_strlen(ctx->flag_copy)) == 0)
+			ft_error(1);
+	}
 }
 
-static void	ft_add_split(char *arg, t_stack **a)
+void	ft_add_split(char *arg, t_stack **a, t_parse_ctx *ctx)
 {
 	char	**tokens;
 	int		i;
-	int		val;
-	t_node	*node;
 
 	tokens = ft_split(arg, ' ');
 	if (!tokens)
@@ -98,27 +59,52 @@ static void	ft_add_split(char *arg, t_stack **a)
 	i = 0;
 	while (tokens[i])
 	{
-		val = ft_atoi(tokens[i]);
-		
-		node = ft_lstnew(val);
-		printf("atoi devuelve %d\n", ft_atoi(tokens[i]));
-		if (!node)
-		{
-			ft_free_split(tokens);
-			printf("split");
-			ft_error(1);
-		}
-		ft_lstadd_back(&(*a)->top, node);
-		(*a)->size++;
+		if (ft_is_flag(tokens[i]))
+			ft_process_flag(tokens[i], ctx);
+		else
+			ft_add_node(a, ft_atoi(tokens[i]), tokens);
 		i++;
 	}
 	ft_free_split(tokens);
 }
 
-void	ft_handle_arg(char *arg, t_stack **a)
+static void	ft_add_single(char *arg, t_stack **a)
+{
+	t_node	*node;
+
+	node = ft_lstnew(ft_atoi(arg));
+	if (!node)
+		ft_error(1);
+	ft_lstadd_back(&(*a)->top, node);
+	(*a)->size++;
+}
+
+void	ft_handle_arg(char *arg, t_stack **a, t_parse_ctx *ctx)
 {
 	if (ft_strchr(arg, ' '))
-		ft_add_split(arg, a);
+		ft_add_split(arg, a, ctx);
 	else
 		ft_add_single(arg, a);
+}
+
+void	ft_parse_argv(int argc, char **argv, t_flags *f, t_stack **a)
+{
+	int			i;
+	t_parse_ctx	ctx;
+
+	i = 1;
+	ctx.f = f;
+	ctx.flag_count = 0;
+	ctx.flag_copy = NULL;
+	while (i < argc)
+	{
+		if (ft_is_flag(argv[i]))
+			ft_process_flag(argv[i], &ctx);
+		else
+			ft_handle_arg(argv[i], a, &ctx);
+		i++;
+	}
+	if (ft_has_duplicates(*a))
+		ft_error(1);
+	ft_print_stack(*a);
 }

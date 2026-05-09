@@ -29,7 +29,6 @@ int	ft_has_duplicates(t_stack *a)
 			{
 				printf("tiene duplicados");
 				return (1);
-				
 			}
 			check = check->next;
 		}
