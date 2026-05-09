@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smilitar <smilitar@student.42barcelon      +#+  +:+       +#+        */
+/*   By: smilitar && gorkgall                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 16:30:40 by smilitar          #+#    #+#             */
 /*   Updated: 2026/04/27 16:32:48 by smilitar         ###   ########.fr       */
@@ -15,5 +15,9 @@
 void	ft_error(int d)
 {
 	if (d == 1)
+	{
 		write(2, "Error\n", 6);
+		exit(1);
+	}
+	
 }

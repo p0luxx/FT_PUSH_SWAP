@@ -6,19 +6,19 @@
 /*   By: gorkgall <gorkgall@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 11:39:59 by gorkgall          #+#    #+#             */
-/*   Updated: 2026/04/16 11:45:41 by gorkgall         ###   ########.fr       */
+/*   Updated: 2026/04/28 12:07:52 by gorkgall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+void	ft_lstiter(t_node *lst, void (*f)(int))
 {
 	if (!lst || !f)
 		return ;
 	while (lst)
 	{
-		f(lst -> content);
+		f(lst -> value);
 		lst = lst -> next;
 	}
 }

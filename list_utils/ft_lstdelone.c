@@ -6,16 +6,15 @@
 /*   By: gorkgall <gorkgall@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 10:21:41 by gorkgall          #+#    #+#             */
-/*   Updated: 2026/04/16 10:26:32 by gorkgall         ###   ########.fr       */
+/*   Updated: 2026/04/28 12:07:26 by gorkgall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(void *))
+void	ft_lstdelone(t_node *lst)
 {
-	if (!lst || !del)
+	if (!lst)
 		return ;
-	del(lst -> content);
 	free(lst);
 }

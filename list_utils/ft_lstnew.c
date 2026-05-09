@@ -6,37 +6,25 @@
 /*   By: gorkgall <gorkgall@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 14:41:41 by gorkgall          #+#    #+#             */
-/*   Updated: 2026/04/15 15:22:31 by gorkgall         ###   ########.fr       */
+/*   Updated: 2026/04/28 12:16:47 by gorkgall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
-t_list	*ft_lstnew(void *content)
+t_node	*ft_lstnew(int value)
 {
-	t_list	*new_list;
+	t_node	*new_node;
 
-	new_list = malloc(sizeof(t_list));
-	if (!new_list)
+	new_node = malloc(sizeof(t_node));
+	if (!new_node)
 		return (NULL);
-	new_list -> content = content;
-	new_list -> next = NULL;
-	return (new_list);
+	new_node -> value = value;
+	new_node -> norm = 0;
+	new_node -> target = 0;
+	new_node -> cost_a = 0;
+	new_node -> cost_b = 0;
+	new_node -> prev = NULL;
+	new_node -> next = NULL;
+	return (new_node);
 }
-/*
-#include <stdio.h>
-int	main(void)
-{
-	char	*str = "Hello world :)";
-	t_list	*res = ft_lstnew(str);
-	if (!res)
-		printf("El puntero devuelto es NULL -> Error de memoria");
-	else if (res)
-		printf("El puntero devuelro es correcto: %s\n", (char *)res -> content);
-	if (res -> next == NULL)
-		printf("Test next: OK");
-	else if (!res -> next)
-		printf("Test next: K.O");
-	free(res);
-	return (0);
-}*/

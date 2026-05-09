@@ -6,13 +6,13 @@
 /*   By: gorkgall <gorkgall@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 09:36:42 by gorkgall          #+#    #+#             */
-/*   Updated: 2026/04/20 10:14:54 by gorkgall         ###   ########.fr       */
+/*   Updated: 2026/04/28 12:08:09 by gorkgall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
-t_list	*ft_lstlast(t_list *lst)
+t_node	*ft_lstlast(t_node *lst)
 {
 	if (!lst)
 		return (NULL);

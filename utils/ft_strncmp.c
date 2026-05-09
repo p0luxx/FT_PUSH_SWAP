@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gorkgall <gorkgall@student.42barcelon      +#+  +:+       +#+        */
+/*   By: smilitar && gorkgall                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/16 09:22:48 by gorkgall          #+#    #+#             */
-/*   Updated: 2026/04/28 12:10:13 by gorkgall         ###   ########.fr       */
+/*   Created: 2026/04/27 19:58:08 by smilitar          #+#    #+#             */
+/*   Updated: 2026/04/27 19:58:15 by smilitar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_lstsize(t_node *lst)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int	size;
-
-	size = 0;
-	while (lst)
+	if (n == 0)
+		return (0);
+	while (*s1 && (*s1 == *s2) && n > 0 && n != 1)
 	{
-		size++;
-		lst = lst -> next;
+		s1++;
+		s2++;
+		n--;
 	}
-	return (size);
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
