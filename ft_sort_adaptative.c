@@ -1,21 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_num.c                                        :+:      :+:    :+:   */
+/*   ft_sort_adaptative.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gorkgall <gorkgall@42barcelona.com>        +#+  +:+       +#+        */
+/*   By: smilitar <smilitar@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/02 13:04:52 by gorkgall          #+#    #+#             */
-/*   Updated: 2026/05/02 14:23:13 by gorkgall         ###   ########.fr       */
+/*   Created: 2026/05/10 22:20:21 by smilitar          #+#    #+#             */
+/*   Updated: 2026/05/10 22:20:23 by smilitar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
 
-int	ft_is_num(char c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	else
-		return (0);
-}

@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_num.c                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gorkgall <gorkgall@42barcelona.com>        +#+  +:+       +#+        */
+/*   By: smilitar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/02 13:04:52 by gorkgall          #+#    #+#             */
-/*   Updated: 2026/05/02 14:23:13 by gorkgall         ###   ########.fr       */
+/*   Created: 2026/04/13 14:53:45 by smilitar          #+#    #+#             */
+/*   Updated: 2026/04/16 17:14:28 by smilitar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_is_num(char c)
+char	*ft_strdup(const char *src)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	else
-		return (0);
+	char	*str;
+	int		i;
+
+	str = malloc((ft_strlen(src) + 1) * sizeof(char));
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (src[i] != '\0')
+	{
+		str[i] = src[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }

@@ -11,9 +11,8 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
-static void	print_flags(t_flags *f)
+/*static void	print_flags(t_flags *f)
 {
 	printf("=== FLAGS ===\n");
 	printf("simple:   %d\n", f->simple);
@@ -22,17 +21,33 @@ static void	print_flags(t_flags *f)
 	printf("adaptive: %d\n", f->adaptive);
 	printf("bench:    %d\n", f->bench);
 	printf("=============\n");
-}
+}*/
+
+/*void	ft_sort(t_flags *f, t_stack **a)
+{
+	if (f->simple)
+		ft_sort_simple(a);
+	else if (f->medium)
+		ft_sort_medium(a);
+	else if (f->complex)
+		ft_sort_complex(a);
+	else
+		ft_sort_adaptive(a);
+}*/
 
 int	main(int argc, char **argv)
 {
 	t_flags	f;
 	t_stack	*a;
 
-	a = NULL;
+	a = ft_init_stack('a');
+	if (!a)
+		ft_error(a);
 	ft_init_flags(&f);
 	ft_parse_argv(argc, argv, &f, &a);
-	print_flags(&f);
+	//ft_sort(&f, &a);
+	//print_flags(&f);
+	free_stack(a);
 	return (0);
 }
 /*

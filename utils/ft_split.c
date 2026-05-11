@@ -81,3 +81,16 @@ char	**ft_split(const char *s, char c)
 	res[j] = NULL;
 	return (res);
 }
+
+void	ft_free_split(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
+}

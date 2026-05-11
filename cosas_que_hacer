@@ -1,0 +1,5 @@
+validar con atol el max int
+el bench sale en el 2, hacer write
+implementar una struct que si es 0, no imprima ningun movimiento, si es 1, que hago lo que pide(evaluacion live coding)
+las flags pueden ir en cualquier sitio
+

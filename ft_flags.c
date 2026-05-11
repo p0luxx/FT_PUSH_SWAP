@@ -21,10 +21,17 @@ void	ft_init_flags(t_flags *f)
 	f->bench = 0;
 }
 
-void	ft_select_algorithm(char *selector, t_flags *f)
+static void	ft_exit_algorithm(t_flags *f)
+{
+	if (f->simple == 0 && f->medium == 0 && f->complex == 0
+			&& f->adaptive == 0)
+			f->adaptive = 1;
+}
+
+void	ft_select_algorithm(char *selector, t_flags *f, t_stack *a)
 {
 	if (!selector)
-		return ;
+		ft_error(a);
 	f->adaptive = 0;
 	if (ft_strncmp(selector, "--simple", 9) == 0)
 		f->simple = 1;
@@ -35,22 +42,25 @@ void	ft_select_algorithm(char *selector, t_flags *f)
 	else if (ft_strncmp(selector, "--adaptive", 11) == 0)
 		f->adaptive = 1;
 	else if (ft_strncmp(selector, "--bench", 8) == 0)
+	{
 		f->bench = 1;
+		ft_exit_algorithm(f);
+	}
 	else
-		ft_error(1);
+		ft_error(a);
 }
 
 void	ft_validate_single_algorithm(char *selector1, char *selector2,
-		t_flags *f)
+		t_flags *f, t_stack **a)
 {
 	int	count;
 
-	ft_select_algorithm(selector1, f);
-	ft_select_algorithm(selector2, f);
+	ft_select_algorithm(selector1, f, *a);
+	ft_select_algorithm(selector2, f, *a);
 	count = 0;
 	if (ft_strncmp(selector1, "--bench", 8) == 0
 		&& ft_strncmp(selector2, "--bench", 8) == 0)
-		ft_error(1);
+		ft_error(*a);
 	if (f->simple)
 		count++;
 	if (f->medium)
@@ -60,16 +70,19 @@ void	ft_validate_single_algorithm(char *selector1, char *selector2,
 	if (f->adaptive)
 		count++;
 	if (count > 1)
-		ft_error(1);
+		ft_error(*a);
 }
 
-int	ft_is_flag(char *s)
+int	ft_is_flag(char *s, t_stack **a)
 {
 	if (!s || s[0] != '-' || s[1] != '-')
 		return (0);
-	return (ft_strncmp(s, "--simple", 9) == 0
+	if (ft_strncmp(s, "--simple", 9) == 0
 		|| ft_strncmp(s, "--medium", 9) == 0
 		|| ft_strncmp(s, "--complex", 10) == 0
 		|| ft_strncmp(s, "--adaptive", 11) == 0
-		|| ft_strncmp(s, "--bench", 8) == 0);
+		|| ft_strncmp(s, "--bench", 8) == 0)
+		return (1);
+	ft_error(*a);
+	return (0);
 }

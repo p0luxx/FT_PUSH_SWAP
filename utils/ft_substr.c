@@ -12,16 +12,6 @@
 
 #include "push_swap.h"
 
-static size_t	ft_strlen(const char *s)
-{
-	size_t	len;
-
-	len = 0;
-	while (s[len])
-		len++;
-	return (len);
-}
-
 static	size_t	ft_strnlen(char *s, size_t start, size_t len)
 {
 	size_t	i;

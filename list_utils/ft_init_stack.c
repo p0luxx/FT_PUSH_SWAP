@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_num.c                                        :+:      :+:    :+:   */
+/*   ft_init_stack.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gorkgall <gorkgall@42barcelona.com>        +#+  +:+       +#+        */
+/*   By: smilitar <smilitar@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/02 13:04:52 by gorkgall          #+#    #+#             */
-/*   Updated: 2026/05/02 14:23:13 by gorkgall         ###   ########.fr       */
+/*   Created: 2026/05/05 15:41:47 by smilitar          #+#    #+#             */
+/*   Updated: 2026/05/05 15:42:19 by smilitar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_is_num(char c)
+t_stack	*ft_init_stack(char name)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	else
-		return (0);
+	t_stack	*stack;
+
+	stack = malloc(sizeof(t_stack));
+	if (!stack)
+		return (NULL);
+	stack->top = NULL;
+	stack->bottom = NULL;
+	stack->size = 0;
+	stack->name = name;
+	return (stack);
 }

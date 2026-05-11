@@ -23,22 +23,28 @@ SUBDIRS		= list_utils utils
 
 # Archivos fuente raíz (en el directorio actual)
 ROOT_SRCS	= push_swap.c \
-			  ft_error.c \
-			  ft_flags.c \
-			  ft_validate_inputs.c
+				ft_error.c \
+				ft_flags.c \
+				ft_validate_inputs.c \
+				ft_sort_simple.c
 
 # Archivos fuente en subdirectorios
 LIST_SRCS	= $(addprefix list_utils/, \
-			  ft_lstnew.c ft_lstadd_back.c ft_lstadd_front.c \
-			  ft_lstlast.c ft_lstsize.c ft_lstdelone.c \
-			  ft_lstclear.c ft_lstiter.c)
+				ft_lstnew.c ft_lstadd_back.c ft_lstadd_front.c \
+				ft_lstlast.c ft_lstsize.c ft_lstdelone.c \
+				ft_lstclear.c ft_lstiter.c ft_init_stack.c \
+			  	ft_add_node.c)
 
 UTILS_SRCS	= $(addprefix utils/, \
-			  ft_atoi.c ft_split.c ft_strncmp.c \
-			  ft_is_num.c ft_check_argv.c ft_strchr.c ft_substr.c ft_has_duplicates.c)
+			  	ft_atoi.c ft_split.c ft_strncmp.c \
+			  	ft_is_num.c ft_check_argv.c ft_strchr.c ft_substr.c \
+			  	ft_has_duplicates.c ft_strdup.c ft_strlen.c)
+
+MOVES_SRCS	= $(addprefix moves/, \
+				ft_push.c ft_rotate.c ft_swap.c ft_rrotate.c)
 
 # Todas las fuentes combinadas
-SRCS		= $(ROOT_SRCS) $(LIST_SRCS) $(UTILS_SRCS)
+SRCS		= $(ROOT_SRCS) $(LIST_SRCS) $(UTILS_SRCS) $(MOVES_SRCS)
 
 # Objetos en el directorio de build
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))

@@ -20,10 +20,6 @@ t_node	*ft_lstnew(int value)
 	if (!new_node)
 		return (NULL);
 	new_node -> value = value;
-	new_node -> norm = 0;
-	new_node -> target = 0;
-	new_node -> cost_a = 0;
-	new_node -> cost_b = 0;
 	new_node -> prev = NULL;
 	new_node -> next = NULL;
 	return (new_node);

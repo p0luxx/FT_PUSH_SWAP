@@ -12,8 +12,26 @@
 
 #include "push_swap.h"
 
-void	ft_error(int d)
+void	free_stack(t_stack *a)
 {
-	if (d == 1)
-		write(2, "Error\n", 6);
+	t_node	*current;
+	t_node	*next;
+
+	if (!a)
+		return ;
+	current = a->top;
+	while (current)
+	{
+		next = current->next;
+		free(current);
+		current = next;
+	}
+	free(a);
+}
+
+void	ft_error(t_stack *a)
+{
+	write(2, "Error\n", 6);
+	free_stack(a);
+	exit(1);
 }
