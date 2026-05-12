@@ -1,41 +1,43 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_swap.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: smilitar <smilitar@student.42barcelon      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/11 01:08:19 by smilitar          #+#    #+#             */
-/*   Updated: 2026/05/11 01:08:20 by smilitar         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "../push_swap.h"
-
-void    ft_sa(t_stack *a)
+#include "push_swap.h"
+ 
+void	op_sa(t_stack **a, char *ops, int *count)
 {
-    int tmp;
-
-    if (!a || a->size < 2)
+	t_stack	*first;
+	t_stack	*second;
+ 
+	if (!a || !(*a) || !(*a)->next)
 		return ;
-    tmp = a->top->value;
-    a->top->value = a->top->next->value;
-    a->top->next->value = tmp;
+	first = *a;
+	second = first->next;
+	first->next = second->next;
+	second->next = first;
+	*a = second;
+	record_operation(ops, count, "sa");
 }
-
-void    ft_sb(t_stack *b)
+ 
+void	op_sb(t_stack **b, char *ops, int *count)
 {
-    int tmp;
-
-    if (!b || b->size < 2)
+	t_stack	*first;
+	t_stack	*second;
+ 
+	if (!b || !(*b) || !(*b)->next)
 		return ;
-    tmp = b->top->value;
-    b->top->value = b->top->next->value;
-    b->top->next->value = tmp;
+	first = *b;
+	second = first->next;
+	first->next = second->next;
+	second->next = first;
+	*b = second;
+	record_operation(ops, count, "sb");
 }
-
-void    ft_ss(t_stack *a, t_stack *b)
+ 
+void	op_ss(t_stack **a, t_stack **b, char *ops, int *count)
 {
-    ft_sa(a);
-    ft_sb(b);
+	op_sa(a, ops, count);
+	op_sb(b, ops, count);
+	/* Remove last two operations and replace with ss */
+	if (*count >= 2)
+	{
+		*count -= 2;
+		record_operation(ops, count, "ss");
+	}
 }
