@@ -1,3 +1,5 @@
+#include "../push_swap.h"
+
 void	op_pa(t_stack **a, t_stack **b, char *ops, int *count)
 {
 	t_stack	*temp;

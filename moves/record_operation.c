@@ -1,3 +1,5 @@
+#include "../push_swap.h"
+
 void	record_operation(char *ops, int *count, const char *op)
 {
 	int	i;

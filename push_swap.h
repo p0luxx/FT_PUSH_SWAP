@@ -6,7 +6,7 @@
 /*   By: gorkgall <gorkgall@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 12:03:31 by gorkgall          #+#    #+#             */
-/*   Updated: 2026/04/27 12:48:39 by gorkgall         ###   ########.fr       */
+/*   Updated: 2026/05/12 08:44:40 by polux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,10 @@
 /*   By: gorkgall <gorkgall@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 12:03:31 by gorkgall          #+#    #+#             */
-/*   Updated: 2026/04/27 12:48:39 by gorkgall         ###   ########.fr       */
+/*   Updated: 2026/05/12 06:50:00 by gorkgall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* push_swap.h */
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
@@ -31,6 +30,7 @@
 # include <limits.h>
 # include <stddef.h>
 # include <stdio.h>
+# include <string.h>
 
 /* ── nodo de la lista enlazada ── */
 typedef struct s_node
@@ -110,15 +110,33 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *src);
 size_t	ft_strlen(const char	*str);
+void	*ft_memset(void *s, int c, size_t n);
 
 /* ── permited movements ── */
 
-void    ft_sa(t_stack *a);
-void    ft_sb(t_stack *b);
-void    ft_ss(t_stack *a, t_stack *b);
+void	ft_sa(t_stack *a);
+void	ft_sb(t_stack *b);
+void	ft_ss(t_stack *a, t_stack *b);
+
+/* ── push operations ── */
+void	op_pa(t_stack **a, t_stack **b, char *ops, int *count);
+void	op_pb(t_stack **a, t_stack **b, char *ops, int *count);
+
+/* ── rotate operations ── */
+void	op_ra(t_stack **a, char *ops, int *count);
+void	op_rb(t_stack **b, char *ops, int *count);
+void	op_rr(t_stack **a, t_stack **b, char *ops, int *count);
+
+/* ── reverse rotate operations ── */
+void	op_rra(t_stack **a, char *ops, int *count);
+void	op_rrb(t_stack **b, char *ops, int *count);
+void	op_rrr(t_stack **a, t_stack **b, char *ops, int *count);
+
+/* ── record operations ── */
+void	record_operation(char *ops, int *count, const char *op);
 
 /* ── sort algorithms ── */
 
-void    ft_sort_simple(t_stack **a);
+void	ft_sort_simple(t_node **a);
 
 #endif

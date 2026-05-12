@@ -1,3 +1,4 @@
+#include "../push_swap.h"
 void	op_ra(t_stack **a, char *ops, int *count)
 {
 	t_stack	*first;

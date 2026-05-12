@@ -1,3 +1,5 @@
+#include "../push_swap.h"
+
 void	op_rra(t_stack **a, char *ops, int *count)
 {
 	t_stack	*last;
