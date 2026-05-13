@@ -20,5 +20,6 @@ void	ft_add_node(t_stack **a, int val)
 	if (!node)
 		ft_error(*a);
 	ft_lstadd_back(&(*a)->top, node);
+	(*a)->bottom = ft_lstlast((*a)->top);
 	(*a)->size++;
 }

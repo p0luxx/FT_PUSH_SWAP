@@ -6,7 +6,7 @@
 /*   By: gorkgall <gorkgall@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/02 13:03:49 by gorkgall          #+#    #+#             */
-/*   Updated: 2026/05/02 13:16:29 by gorkgall         ###   ########.fr       */
+/*   Updated: 2026/05/12 14:10:56 by gorkgall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	check_sign(char c)
 	return (np);
 }
 
-int	ft_atoi(char *s, t_stack **a)
+int	ft_atol(char *s, t_stack **a)
 {
 	long long	res;
 	int			i;
@@ -36,7 +36,10 @@ int	ft_atoi(char *s, t_stack **a)
 	while (((s[i] >= 8 && s[i] <= 13)) || (s[i] == 32))
 		i++;
 	if (s[i] == '-' || s[i] == '+')
+	{
 		np = check_sign(s[i]);
+		i++;
+	}
 	if (!ft_is_num(s[i]))
 		ft_error(*a);
 	while (ft_is_num(s[i]))

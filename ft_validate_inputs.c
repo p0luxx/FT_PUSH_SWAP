@@ -6,29 +6,11 @@
 /*   By: smilitar && gorkgall                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 21:49:07 by smilitar          #+#    #+#             */
-/*   Updated: 2026/04/27 23:03:21 by smilitar         ###   ########.fr       */
+/*   Updated: 2026/05/12 14:11:39 by gorkgall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "push_swap.h"
-//borrrar estoo    sdafaf a fadfafafafafa dfsgdddddddddddddddddddddddaaaaaaaaaaaaaaaaaaaaa
-/*void	ft_print_stack(t_stack *a)
-{
-	t_node	*tmp;
 
-	if (!a || !a->top)
-	{
-		printf("[stack '%c' vacío]\n", a ? a->name : '?');
-		return ;
-	}
-	printf("=== STACK '%c' (size: %d) ===\n", a->name, a->size);
-	tmp = a->top;
-	while (tmp)
-	{
-		printf("  value: %d\n", tmp->value);
-		tmp = tmp->next;
-	}
-	printf("===========================\n");
-}*/
+#include "push_swap.h"
 
 static void	ft_process_flag(char *token, t_parse_ctx *ctx, t_stack **a)
 {
@@ -65,7 +47,7 @@ void	ft_add_split(char *arg, t_stack **a, t_parse_ctx *ctx)
 		if (ft_is_flag(tokens[i], a))
 			ft_process_flag(tokens[i], ctx, a);
 		else
-			ft_add_node(a, ft_atoi(tokens[i], a));
+			ft_add_node(a, ft_atol(tokens[i], a));
 		i++;
 	}
 	ft_free_split(tokens);
@@ -75,8 +57,10 @@ void	ft_handle_arg(char *arg, t_stack **a, t_parse_ctx *ctx)
 {
 	if (ft_strchr(arg, ' '))
 		ft_add_split(arg, a, ctx);
+	else if (ft_is_flag(arg, a))
+		ft_process_flag(arg, ctx, a);
 	else
-		ft_add_node(a, ft_atoi(arg, a));
+		ft_add_node(a, ft_atol(arg, a));
 }
 
 void	ft_parse_argv(int argc, char **argv, t_flags *f, t_stack **a)
@@ -98,5 +82,4 @@ void	ft_parse_argv(int argc, char **argv, t_flags *f, t_stack **a)
 	}
 	if (ft_has_duplicates(*a))
 		ft_error(*a);
-	//ft_print_stack(*a);
 }

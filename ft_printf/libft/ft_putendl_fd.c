@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smilitar <matildasbartolomeo@gmail.com>    +#+  +:+       +#+        */
+/*   By: smilitar <smilitar@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/05 23:16:47 by smilitar          #+#    #+#             */
-/*   Updated: 2026/04/08 11:37:27 by smilitar         ###   ########.fr       */
+/*   Created: 2026/04/16 14:11:48 by smilitar          #+#    #+#             */
+/*   Updated: 2026/04/16 14:17:16 by smilitar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-size_t	ft_strlen(const char	*str)
+void	ft_putendl_fd(char *s, int fd)
 {
-	size_t	len;
-
-	len = 0;
-	while (str[len] != '\0')
-		len++;
-	return (len);
+	ft_putstr_fd(s, fd);
+	ft_putchar_fd('\n', fd);
 }

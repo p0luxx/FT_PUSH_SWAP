@@ -24,8 +24,8 @@ void	ft_init_flags(t_flags *f)
 static void	ft_exit_algorithm(t_flags *f)
 {
 	if (f->simple == 0 && f->medium == 0 && f->complex == 0
-			&& f->adaptive == 0)
-			f->adaptive = 1;
+		&& f->adaptive == 0)
+		f->adaptive = 1;
 }
 
 void	ft_select_algorithm(char *selector, t_flags *f, t_stack *a)

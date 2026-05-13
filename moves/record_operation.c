@@ -1,17 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   record_operation.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gorkgall <gorkgall@student.42barcelon      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/11 16:23:40 by gorkgall          #+#    #+#             */
+/*   Updated: 2026/05/12 14:10:18 by gorkgall         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../push_swap.h"
 
 void	record_operation(char *ops, int *count, const char *op)
 {
-	int	i;
- 
 	if (!ops || !op || *count < 0)
 		return ;
+	ft_strlcpy(&ops[*count * 4], op, 4);
+	(*count)++;
+}
+
+void	print_ops(char *ops, int count)
+{
+	int	i;
+
 	i = 0;
-	while (ops[*count * 10 + i] && i < 10)
-		i++;
-	if (i + strlen(op) < 10)
+	while (i < count)
 	{
-		strcpy(&ops[*count * 10], op);
-		(*count)++;
+		write(1, &ops[i * 4], ft_strlen(&ops[i * 4]));
+		write(1, "\n", 1);
+		i++;
 	}
 }

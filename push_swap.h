@@ -6,31 +6,20 @@
 /*   By: gorkgall <gorkgall@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 12:03:31 by gorkgall          #+#    #+#             */
-/*   Updated: 2026/05/12 08:44:40 by polux            ###   ########.fr       */
+/*   Updated: 2026/05/12 14:15:34 by gorkgall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: gorkgall <gorkgall@student.42barcelon      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/24 12:03:31 by gorkgall          #+#    #+#             */
-/*   Updated: 2026/05/12 06:50:00 by gorkgall         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
+/* push_swap.h */
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+#include "ft_printf/ft_printf/ft_printf.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
 # include <stddef.h>
 # include <stdio.h>
-# include <string.h>
 
 /* ── nodo de la lista enlazada ── */
 typedef struct s_node
@@ -59,6 +48,26 @@ typedef struct s_flags
 	int	bench;
 }	t_flags;
 
+/* ── bench ── */
+
+typedef struct s_bench
+{
+	double	disorder;
+	char	*strategy;
+	int		total_ops;
+	int		sa;
+	int		sb;
+	int		ss;
+	int		pa;
+	int		pb;
+	int		ra;
+	int		rb;
+	int		rr;
+	int		rra;
+	int		rrb;
+	int		rrr;
+}	t_bench;
+
 /* ── flags ── */
 typedef struct s_parse_ctx
 {
@@ -66,8 +75,6 @@ typedef struct s_parse_ctx
 	int		flag_count;
 	char	*flag_copy;
 }	t_parse_ctx;
-
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 /* ── handle errors ── */
 void	ft_error(t_stack *a);
@@ -103,14 +110,16 @@ void	ft_add_node(t_stack **a, int val);
 /* ── string utilities ── */
 
 char	**ft_split(char const *s, char c);
-int		ft_atoi(char *s, t_stack **a);
+int		ft_atol(char *s, t_stack **a);
 int		ft_is_num(char c);
 void	ft_free_split(char **split);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strchr(const char *s, int c);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *src);
-size_t	ft_strlen(const char	*str);
 void	*ft_memset(void *s, int c, size_t n);
+size_t	ft_strlcpy(char *dest, const char *src, size_t siz);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
 
 /* ── permited movements ── */
 
@@ -132,11 +141,19 @@ void	op_rra(t_stack **a, char *ops, int *count);
 void	op_rrb(t_stack **b, char *ops, int *count);
 void	op_rrr(t_stack **a, t_stack **b, char *ops, int *count);
 
-/* ── record operations ── */
+/* ── stack helpers ── */
+t_stack	*stack_pop(t_stack **stack);
+void	stack_add_front(t_stack **stack, t_stack *new);
+void	stack_add_back(t_stack **stack, t_stack *new);
 void	record_operation(char *ops, int *count, const char *op);
+void	print_ops(char *ops, int count);
 
 /* ── sort algorithms ── */
 
-void	ft_sort_simple(t_node **a);
+void	ft_sort_simple(t_stack **a);
+
+/* ── validate bench ── */
+
+void    ft_init_bench(t_bench *bench, t_stack *a, t_flags *f);
 
 #endif
