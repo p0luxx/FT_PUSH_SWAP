@@ -40,14 +40,14 @@ UTILS_SRCS  = $(addprefix utils/, \
               ft_atoi.c ft_split.c ft_strncmp.c \
               ft_is_num.c ft_check_argv.c ft_strchr.c ft_substr.c \
               ft_has_duplicates.c ft_strdup.c ft_strlcpy.c \
-			  ft_memcpy.c) 
+			  ft_memcpy.c)
 
 MOVES_SRCS  = $(addprefix moves/, \
               ft_push.c ft_rotate.c ft_swap.c ft_rrotate.c \
               record_operation.c)
 
 ALGO_SRCS   = $(addprefix algorithms/, \
-              ft_sort_simple.c)
+              ft_sort_simple.c ft_sort_medium.c ft_sort_medium2.c ft_sort_complex.c)
 
 PRINTF_MAIN = ft_printf/ft_printf.c
 

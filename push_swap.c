@@ -6,7 +6,7 @@
 /*   By: smilitar && gorkgall                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 15:30:54 by smilitar          #+#    #+#             */
-/*   Updated: 2026/05/12 13:51:08 by gorkgall         ###   ########.fr       */
+/*   Updated: 2026/05/14 10:55:12 by polux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ void	ft_sort(t_flags *f, t_stack **a)
 {
 	if (f->simple)
 		ft_sort_simple(a);
-	/*else if (f->medium)
+	else if (f->medium)
 		ft_sort_medium(a);
 	else if (f->complex)
 		ft_sort_complex(a);
-	else
+	/*else
 		ft_sort_adaptive(a);*/
 }
 

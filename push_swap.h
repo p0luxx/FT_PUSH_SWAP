@@ -6,7 +6,7 @@
 /*   By: gorkgall <gorkgall@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 12:03:31 by gorkgall          #+#    #+#             */
-/*   Updated: 2026/05/12 14:15:34 by gorkgall         ###   ########.fr       */
+/*   Updated: 2026/05/13 13:00:33 by polux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,23 @@ void	print_ops(char *ops, int count);
 /* ── sort algorithms ── */
 
 void	ft_sort_simple(t_stack **a);
+void	ft_sort_complex(t_stack **a);
+void	ft_sort_medium(t_stack **a);
+
+/* ── medium helpers ── */
+int		ft_sqrt(int n);
+int		get_index(t_node *stack, int value);
+int		find_max(t_node *stack);
+int		find_position(t_node *stack, int value);
+void	rotate_value_to_top(t_stack **s, int val, char n, char *ops, int *c);
+void	push_chunks_to_b(t_stack **a, t_stack **b, int cs, char *ops, int *c);
+void	push_back_to_a(t_stack **a, t_stack **b, char *ops, int *count);
+
+/* ── complex helpers ── */
+void	normalize_stack(t_stack **stack);
+int		get_max_value(t_node *stack);
+int		get_max_bits(int max_num);
+void	process_bit(t_stack **a, t_stack **b, int bit, char *ops, int *c);
 
 /* ── validate bench ── */
 
