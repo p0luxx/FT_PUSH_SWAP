@@ -6,25 +6,10 @@
 /*   By: gorkgall <gorkgall@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 22:19:49 by smilitar          #+#    #+#             */
-/*   Updated: 2026/05/14 10:48:37 by gorkgall         ###   ########.fr       */
+/*   Updated: 2026/05/15 18:18:35 by polux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../push_swap.h"
-
-int	ft_sqrt(int n)
-{
-	int	i;
-
-	if (n <= 0)
-		return (0);
-	i = 1;
-	while (i * i < n)
-		i++;
-	if (i * i > n)
-		i--;
-	return (i);
-}
 
 int	get_index(t_node *stack, int value)
 {
@@ -77,6 +62,10 @@ int	find_position(t_node *stack, int value)
 	return (-1);
 }
 
+/*
+** Rotación óptima: elige entre ra/rra en función de qué camino
+** es más corto. Idéntico al original pero extraído como inline helper.
+*/
 void	rotate_value_to_top(t_stack **s, int val, char n, char *ops, int *c)
 {
 	int	pos;

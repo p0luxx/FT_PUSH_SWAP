@@ -6,7 +6,7 @@
 /*   By: gorkgall <gorkgall@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 13:13:02 by gorkgall          #+#    #+#             */
-/*   Updated: 2026/05/12 14:18:24 by gorkgall         ###   ########.fr       */
+/*   Updated: 2026/05/15 18:20:47 by polux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,13 @@ static int	find_min_pos(t_node *stack)
 	return (min_pos);
 }
 
-static void	rotate_to_top(t_stack **a, int pos, int size,
-				char *ops, int *count)
+static void	rotate_to_top(t_stack **a, int pos, int size, char *ops, int *count)
 {
 	int	up;
 	int	down;
 	int	i;
 
-	if (pos == 0 || pos < 0)
+	if (pos <= 0)
 		return ;
 	up = pos;
 	down = size - pos;
@@ -77,19 +76,30 @@ static void	push_all_to_b(t_stack **a, t_stack **b, char *ops, int *count)
 void	ft_sort_simple(t_stack **a)
 {
 	t_stack	*b;
-	char	ops[10000];
+	char	*ops;
 	int		op_count;
 
 	if (!a || !(*a) || (*a)->size <= 1)
 		return ;
-	ops[0] = 0;
+
+	/* Evitamos stack overflow para +100,000 strings */
+	ops = malloc(2000000);
+	if (!ops)
+		return ;
+	ops[0] = '\0';
 	op_count = 0;
+
 	b = ft_init_stack('b');
 	if (!b)
+	{
+		free(ops);
 		return ;
+	}
 	push_all_to_b(a, &b, ops, &op_count);
 	while (b && b->size > 0)
 		op_pa(a, &b, ops, &op_count);
+
 	free_stack(b);
 	print_ops(ops, op_count);
+	free(ops);
 }

@@ -6,11 +6,11 @@
 /*   By: gorkgall <gorkgall@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 14:14:41 by gorkgall          #+#    #+#             */
-/*   Updated: 2026/05/12 14:15:02 by gorkgall         ###   ########.fr       */
+/*   Updated: 2026/05/15 17:56:41 by polux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.c"
+#include "../push_swap.h"
 
 void	*ft_memset(void *s, int c, size_t n)
 {

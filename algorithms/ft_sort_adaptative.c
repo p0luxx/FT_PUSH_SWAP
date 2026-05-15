@@ -6,11 +6,12 @@
 /*   By: smilitar <smilitar@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 22:20:21 by smilitar          #+#    #+#             */
-/*   Updated: 2026/05/10 22:20:23 by smilitar         ###   ########.fr       */
+/*   Updated: 2026/05/15 18:12:51 by polux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
+
 
 void    ft_sort_adaptive(t_stack **a, t_bench *bench)
 {
@@ -21,6 +22,3 @@ void    ft_sort_adaptive(t_stack **a, t_bench *bench)
     else
         ft_sort_complex(a);
 }
-
-
-

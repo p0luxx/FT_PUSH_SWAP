@@ -40,7 +40,7 @@ UTILS_SRCS  = $(addprefix utils/, \
               ft_atoi.c ft_split.c ft_strncmp.c \
               ft_is_num.c ft_check_argv.c ft_strchr.c ft_substr.c \
               ft_has_duplicates.c ft_strdup.c ft_strlcpy.c \
-			  ft_memcpy.c) 
+			  ft_memcpy.c ft_memset.c) 
 
 MOVES_SRCS  = $(addprefix moves/, \
               ft_push.c ft_rotate.c ft_swap.c ft_rrotate.c \
