@@ -58,7 +58,9 @@ void	ft_print_bench(t_bench *bench)
 
 void	ft_sort(t_flags *f, t_stack **a, t_bench bench)
 {
-	if (f->simple)
+	if (ft_is_sorted(*a) == 0)
+	{
+		if (f->simple)
 		ft_sort_simple(a);
 	else if (f->medium)
 		ft_sort_medium(a);
@@ -66,6 +68,7 @@ void	ft_sort(t_flags *f, t_stack **a, t_bench bench)
 		ft_sort_complex(a);
 	else
 		ft_sort_adaptive(a, &bench);
+	}
 }
 
 int	main(int argc, char **argv)
@@ -90,10 +93,10 @@ int	main(int argc, char **argv)
 
 /*
  algoritmos
---simple    Insertion expectante     O(n²)      fácil de implementar
---medium    Insertion chunked        O(n√n)     reutiliza mirror
---complex   Radix LSD                O(n log n) garantiza excelente
---adaptive  disorder < 0.1 → simple
-            disorder < 0.4 → medium
-            disorder ≥ 0.4 → complex
+--simple    Sort	 	 				O(n²)      fácil de implementar
+--medium    Chunk						O(n√n)     reutiliza mirror
+--complex   Radix						O(n log n) garantiza excelente
+--adaptive  disorder < 0.2 → simple
+            disorder < 0.5 → medium
+            disorder ≥ 0.5 → complex
             */

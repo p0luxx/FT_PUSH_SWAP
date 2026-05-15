@@ -80,6 +80,8 @@ void	ft_parse_argv(int argc, char **argv, t_flags *f, t_stack **a)
 			ft_handle_arg(argv[i], a, &ctx);
 		i++;
 	}
+	free(ctx.flag_copy);
+	ctx.flag_copy = NULL;
 	if (ft_has_duplicates(*a))
 		ft_error(*a);
 }

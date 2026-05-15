@@ -15,7 +15,7 @@ void	op_pa(t_stack **a, t_stack **b, char *ops, int *count)
 {
 	t_node	*temp;
 
-	if (!b || !(*b))
+	if (!b || !(*b) || !a || !(*a))
 		return ;
 	temp = (*b)->top;
 	(*b)->top = (*b)->top->next;
@@ -39,7 +39,7 @@ void	op_pb(t_stack **a, t_stack **b, char *ops, int *count)
 {
 	t_node	*temp;
 
-	if (!a || !(*a))
+	if (!a || !(*a) || !b || !(*b))
 		return ;
 	temp = (*a)->top;
 	(*a)->top = (*a)->top->next;

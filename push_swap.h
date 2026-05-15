@@ -6,7 +6,7 @@
 /*   By: gorkgall <gorkgall@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 12:03:31 by gorkgall          #+#    #+#             */
-/*   Updated: 2026/05/15 11:03:36 by polux            ###   ########.fr       */
+/*   Updated: 2026/05/12 14:15:34 by gorkgall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	ft_lstdelone(t_node *lst);
 void	ft_lstclear(t_node **lst);
 t_stack	*ft_init_stack(char name);
 void	ft_add_node(t_stack **a, int val);
+int		ft_is_sorted(t_stack *a);
 
 /* ── string utilities ── */
 
@@ -149,29 +150,18 @@ void	record_operation(char *ops, int *count, const char *op);
 void	print_ops(char *ops, int count);
 
 /* ── sort algorithms ── */
+
 void	ft_sort_simple(t_stack **a);
 void	ft_sort_medium(t_stack **a);
 void	ft_sort_complex(t_stack **a);
-void    ft_sort_adaptive(t_stack **a, t_bench *bench); 
-/* ── medium helpers ── */
-int		ft_sqrt(int n);
-int		get_index(t_node *stack, int value);
+void    ft_sort_adaptive(t_stack **a, t_bench *bench);
+
+/* ── sort utils algorithms ── */
+
+int			get_index(t_node *stack, int value);
 int		find_max(t_node *stack);
-int		find_position(t_node *stack, int value);
 void	rotate_value_to_top(t_stack **s, int val, char n, char *ops, int *c);
-void	push_chunks_to_b(t_stack **a, t_stack **b, int cs, char *ops, int *c);
-void	push_back_to_a(t_stack **a, t_stack **b, char *ops, int *c);
- 
-/* ── complex helpers ── */
-void	normalize_stack(t_stack **stack);
-int		get_max_value(t_node *stack);
-int		get_max_bits(int max_num);
-void	process_bit(t_stack **a, t_stack **b, int bit, char *ops, int *c);
- 
-/* ── utilities ── */
-void	print_ops(char *ops, int count);
-t_stack	*ft_init_stack(char name);
-void	free_stack(t_stack *stack);
+int		ft_sqrt(int n);
 
 /* ── validate bench ── */
 

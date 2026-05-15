@@ -6,7 +6,7 @@
 /*   By: gorkgall <gorkgall@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 22:20:04 by smilitar          #+#    #+#             */
-/*   Updated: 2026/05/15 10:56:16 by polux            ###   ########.fr       */
+/*   Updated: 2026/05/14 10:50:21 by gorkgall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,36 @@
 void	normalize_stack(t_stack **stack)
 {
 	t_node	*current;
-	t_node	*compare;
 	int		index;
+	int		*original;
+	int		i;
+	int		j;
 
+	i = 0;
 	current = (*stack)->top;
+	original = malloc(sizeof(int) * (*stack)->size);
+	while (current)
+	{
+		original[i++] = current->value;
+		current = current->next;
+	}
+	current = (*stack)->top;
+	i = 0;
 	while (current)
 	{
 		index = 0;
-		compare = (*stack)->top;
-		while (compare)
+		j = 0;
+		while (j < (*stack)->size)
 		{
-			if (compare->value < current->value)
+			if (original[j] < original[i])
 				index++;
-			compare = compare->next;
+			j++;
 		}
 		current->value = index;
 		current = current->next;
+		i++;
 	}
+	free(original);
 }
 
 int	get_max_value(t_node *stack)
@@ -71,13 +84,13 @@ void	process_bit(t_stack **a, t_stack **b, int bit, char *ops, int *c)
 	i = 0;
 	while (i < size)
 	{
-		if ((((*a)->top->value >> bit) & 1) == 1)
+		if ((((*a)->top->value >> bit) & 1) == 0)
 			op_pb(a, b, ops, c);
 		else
 			op_ra(a, ops, c);
 		i++;
 	}
-	while ((*b) && (*b)->size > 0)
+	while ((*b)->size > 0)
 		op_pa(a, b, ops, c);
 }
 
@@ -86,16 +99,15 @@ void	ft_sort_complex(t_stack **a)
 	t_stack	*b;
 	int		bits;
 	int		i;
-	char	ops[10000];
+	char	ops[50000];
 	int		op_count;
 
 	if (!a || !(*a) || (*a)->size <= 1)
 		return ;
-	ops[0] = 0;
-	op_count = 0;
 	b = ft_init_stack('b');
 	if (!b)
 		return ;
+	op_count = 0;
 	normalize_stack(a);
 	bits = get_max_bits(get_max_value((*a)->top));
 	i = 0;
@@ -104,6 +116,6 @@ void	ft_sort_complex(t_stack **a)
 		process_bit(a, &b, i, ops, &op_count);
 		i++;
 	}
-	free_stack(b);
+	free(b);
 	print_ops(ops, op_count);
 }
