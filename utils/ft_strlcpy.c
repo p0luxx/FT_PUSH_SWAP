@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_add_node.c                                      :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smilitar <smilitar@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/09 14:06:23 by smilitar          #+#    #+#             */
-/*   Updated: 2026/05/09 14:06:58 by smilitar         ###   ########.fr       */
+/*   Created: 2026/04/13 21:40:32 by smilitar          #+#    #+#             */
+/*   Updated: 2026/04/13 22:02:46 by smilitar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../push_swap.h"
 
-void	ft_add_node(t_stack **a, int val)
+size_t	ft_strlcpy(char *dest, const char *src, size_t siz)
 {
-	t_node	*node;
+	size_t	len;
+	size_t	copy_len;
 
-	node = ft_lstnew(val);
-	if (!node)
-		ft_error(*a);
-	ft_lstadd_back(&(*a)->top, node);
-	(*a)->bottom = ft_lstlast((*a)->top);
-	(*a)->size++;
+	len = ft_strlen(src);
+	if (siz == 0)
+		return (len);
+	if (len >= siz)
+		copy_len = siz - 1;
+	else
+		copy_len = len;
+	ft_memcpy(dest, src, copy_len);
+	dest[copy_len] = '\0';
+	return (len);
 }

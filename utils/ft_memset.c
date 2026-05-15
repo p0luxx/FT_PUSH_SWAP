@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_add_node.c                                      :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smilitar <smilitar@student.42barcelon      +#+  +:+       +#+        */
+/*   By: gorkgall <gorkgall@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/09 14:06:23 by smilitar          #+#    #+#             */
-/*   Updated: 2026/05/09 14:06:58 by smilitar         ###   ########.fr       */
+/*   Created: 2026/05/12 14:14:41 by gorkgall          #+#    #+#             */
+/*   Updated: 2026/05/12 14:15:02 by gorkgall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap.c"
 
-void	ft_add_node(t_stack **a, int val)
+void	*ft_memset(void *s, int c, size_t n)
 {
-	t_node	*node;
+	size_t			i;
 
-	node = ft_lstnew(val);
-	if (!node)
-		ft_error(*a);
-	ft_lstadd_back(&(*a)->top, node);
-	(*a)->bottom = ft_lstlast((*a)->top);
-	(*a)->size++;
+	i = 0;
+	while (i < n)
+	{
+		((char *)s)[i] = c;
+		i++;
+	}
+	return (s);
 }

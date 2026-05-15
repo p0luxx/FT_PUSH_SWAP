@@ -1,85 +1,106 @@
 # ============================================================================
-#                          CONFIGURACIÓN GENERAL
+#                         CONFIGURACIÓN GENERAL
 # ============================================================================
 
-NAME		= push_swap
-CC			= cc
-CFLAGS		= -Wall -Wextra -Werror
-INCLUDES	= -I.
+NAME        = push_swap
+CC          = cc
+CFLAGS      = -Wall -Wextra -Werror
+INCLUDES    = -I. -Ift_printf/ft_printf -Ift_printf/libft
 
 # ============================================================================
-#                       DIRECTORIOS Y ESTRUCTURA
+#                      DIRECTORIOS Y ESTRUCTURA
 # ============================================================================
 
-SRC_DIR		= .
-BUILD_DIR	= build
-OBJ_DIR		= $(BUILD_DIR)/obj
+SRC_DIR     = .
+BUILD_DIR   = build
+OBJ_DIR     = $(BUILD_DIR)/obj
 
-SUBDIRS		= list_utils utils
+# Directorios para organización interna
+SUBDIRS     = list_utils utils algorithms moves ft_printf/ft_printf ft_printf/libft
 
 # ============================================================================
-#                    DESCUBRIMIENTO AUTOMÁTICO DE FUENTES
+#                   DESCUBRIMIENTO AUTOMÁTICO DE FUENTES
 # ============================================================================
 
-# Archivos fuente raíz (en el directorio actual)
-ROOT_SRCS	= push_swap.c \
-			  ft_error.c \
-			  ft_flags.c \
-			  ft_validate_inputs.c
+# Archivos fuente raíz (Se eliminó ft_sort_simple.c de aquí)
+ROOT_SRCS   = push_swap.c \
+              ft_error.c \
+              ft_flags.c \
+              ft_validate_inputs.c \
+              ft_bench.c
 
 # Archivos fuente en subdirectorios
-LIST_SRCS	= $(addprefix list_utils/, \
-			  ft_lstnew.c ft_lstadd_back.c ft_lstadd_front.c \
-			  ft_lstlast.c ft_lstsize.c ft_lstdelone.c \
-			  ft_lstclear.c ft_lstiter.c ft_init_stack.c \
-			  ft_add_node.c)
+LIST_SRCS   = $(addprefix list_utils/, \
+              ft_lstnew.c ft_lstadd_back.c ft_lstadd_front.c \
+              ft_lstlast.c ft_lstsize.c ft_lstdelone.c \
+              ft_lstclear.c ft_lstiter.c ft_init_stack.c \
+              ft_add_node.c)
 
-UTILS_SRCS	= $(addprefix utils/, \
-			  ft_atoi.c ft_split.c ft_strncmp.c \
-			  ft_is_num.c ft_check_argv.c ft_strchr.c ft_substr.c \
-			  ft_has_duplicates.c ft_strdup.c ft_strlen.c)  
+UTILS_SRCS  = $(addprefix utils/, \
+              ft_atoi.c ft_split.c ft_strncmp.c \
+              ft_is_num.c ft_check_argv.c ft_strchr.c ft_substr.c \
+              ft_has_duplicates.c ft_strdup.c ft_strlcpy.c \
+			  ft_memcpy.c) 
 
-# Todas las fuentes combinadas
-SRCS		= $(ROOT_SRCS) $(LIST_SRCS) $(UTILS_SRCS)
+MOVES_SRCS  = $(addprefix moves/, \
+              ft_push.c ft_rotate.c ft_swap.c ft_rrotate.c \
+              record_operation.c)
 
-# Objetos en el directorio de build
-OBJS		= $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
+ALGO_SRCS   = $(addprefix algorithms/, \
+              ft_sort_simple.c ft_sort_medium.c ft_sort_medium2.c \
+			  ft_sort_complex.c ft_sort_adaptative.c)
+
+PRINTF_MAIN = ft_printf/ft_printf.c
+
+PRINTF_SRCS = $(addprefix ft_printf/ft_printf/, \
+              ft_print_char.c ft_print_str.c \
+              ft_print_int.c ft_print_hex.c ft_print_ptr.c \
+              ft_print_un_int.c)
+
+LIBFT_SRCS  = $(addprefix ft_printf/libft/, \
+              ft_putchar_fd.c ft_putstr_fd.c ft_putnbr_fd.c \
+              ft_putunbr_fd.c ft_putendl_fd.c ft_strlen.c \
+              ft_len_nb.c ft_len_unb.c)
+
+# Unión de todas las fuentes
+ALL_SRCS    = $(ROOT_SRCS) $(LIST_SRCS) $(UTILS_SRCS) $(MOVES_SRCS) \
+              $(ALGO_SRCS) $(PRINTF_SRCS) $(LIBFT_SRCS) $(PRINTF_MAIN)
+
+# Generación de rutas de objetos: build/obj/path/to/file.o
+ALL_OBJS    = $(addprefix $(OBJ_DIR)/, $(ALL_SRCS:.c=.o))
 
 # ============================================================================
 #                            COLORES PARA OUTPUT
 # ============================================================================
 
-RED			= \033[0;31m
-GREEN		= \033[0;32m
-YELLOW		= \033[0;33m
-BLUE		= \033[0;34m
-PURPLE		= \033[0;35m
-CYAN		= \033[0;36m
-WHITE		= \033[0;37m
-RESET		= \033[0m
-BOLD		= \033[1m
+GREEN       = \033[0;32m
+YELLOW      = \033[0;33m
+BLUE        = \033[0;34m
+CYAN        = \033[0;36m
+RESET       = \033[0m
+BOLD        = \033[1m
 
 # ============================================================================
-#                             REGLAS PRINCIPALES
+#                              REGLAS PRINCIPALES
 # ============================================================================
 
-.PHONY: all clean fclean re help directories
+.PHONY: all clean fclean re directories
 
 all: directories $(NAME)
-	@echo "$(GREEN)$(BOLD)✓ $(NAME) compilado exitosamente$(RESET)"
 
-$(NAME): $(OBJS)
-	@echo "$(CYAN)Enlazando objetos...$(RESET)"
-	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
-	@echo "$(GREEN)$(BOLD)✓ Ejecutable creado: $(NAME)$(RESET)"
+$(NAME): $(ALL_OBJS)
+	@echo "$(CYAN)Enlazando objetos para crear $(NAME)...$(RESET)"
+	@$(CC) $(CFLAGS) $(ALL_OBJS) -o $(NAME)
+	@echo "$(GREEN)$(BOLD)✓ $(NAME) creado exitosamente$(RESET)"
 
 # ============================================================================
 #                        COMPILACIÓN DE OBJETOS
 # ============================================================================
 
+# Regla universal: crea el directorio necesario y compila el .c en .o
 $(OBJ_DIR)/%.o: %.c
-	@echo "$(BLUE)Compilando: $<$(RESET)"
 	@mkdir -p $(dir $@)
+	@echo "$(BLUE)Compilando: $<$(RESET)"
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 # ============================================================================
@@ -91,18 +112,17 @@ directories:
 	@mkdir -p $(addprefix $(OBJ_DIR)/, $(SUBDIRS))
 
 # ============================================================================
-#                          LIMPIEZA Y MANTENIMIENTO
+#                        LIMPIEZA Y MANTENIMIENTO
 # ============================================================================
 
 clean:
-	@echo "$(YELLOW)Limpiando archivos objeto...$(RESET)"
+	@echo "$(YELLOW)Limpiando objetos...$(RESET)"
 	@rm -rf $(BUILD_DIR)
-	@echo "$(GREEN)✓ Archivos objeto eliminados$(RESET)"
 
 fclean: clean
 	@echo "$(YELLOW)Limpiando ejecutable...$(RESET)"
 	@rm -f $(NAME)
-	@echo "$(GREEN)✓ Ejecutable eliminado$(RESET)"
+	@echo "$(GREEN)✓ Todo limpio$(RESET)"
 
 re: fclean all
 	@echo "$(CYAN)Compilación completa$(RESET)"

@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_add_node.c                                      :+:      :+:    :+:   */
+/*   ft_len_nb.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smilitar <smilitar@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/09 14:06:23 by smilitar          #+#    #+#             */
-/*   Updated: 2026/05/09 14:06:58 by smilitar         ###   ########.fr       */
+/*   Created: 2026/04/17 14:27:18 by smilitar          #+#    #+#             */
+/*   Updated: 2026/04/17 14:27:22 by smilitar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-
-void	ft_add_node(t_stack **a, int val)
+int	ft_len_nb(int n)
 {
-	t_node	*node;
+	int	len;
 
-	node = ft_lstnew(val);
-	if (!node)
-		ft_error(*a);
-	ft_lstadd_back(&(*a)->top, node);
-	(*a)->bottom = ft_lstlast((*a)->top);
-	(*a)->size++;
+	len = 1;
+	if (n == -2147483648)
+	{
+		return (11);
+	}
+	if (n < 0)
+	{
+		len++;
+		n = -n;
+	}
+	while (n > 9)
+	{
+		len++;
+		n = n / 10;
+	}
+	return (len);
 }

@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_add_node.c                                      :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smilitar <smilitar@student.42barcelon      +#+  +:+       +#+        */
+/*   By: smilitar <matildasbartolomeo@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/09 14:06:23 by smilitar          #+#    #+#             */
-/*   Updated: 2026/05/09 14:06:58 by smilitar         ###   ########.fr       */
+/*   Created: 2026/04/05 23:16:47 by smilitar          #+#    #+#             */
+/*   Updated: 2026/04/08 11:37:27 by smilitar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	ft_add_node(t_stack **a, int val)
+size_t	ft_strlen(const char	*str)
 {
-	t_node	*node;
+	size_t	len;
 
-	node = ft_lstnew(val);
-	if (!node)
-		ft_error(*a);
-	ft_lstadd_back(&(*a)->top, node);
-	(*a)->bottom = ft_lstlast((*a)->top);
-	(*a)->size++;
+	len = 0;
+	while (str[len] != '\0')
+		len++;
+	return (len);
 }

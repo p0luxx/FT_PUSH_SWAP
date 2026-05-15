@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_add_node.c                                      :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smilitar <smilitar@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/09 14:06:23 by smilitar          #+#    #+#             */
-/*   Updated: 2026/05/09 14:06:58 by smilitar         ###   ########.fr       */
+/*   Created: 2026/04/17 08:49:54 by smilitar          #+#    #+#             */
+/*   Updated: 2026/04/17 08:49:57 by smilitar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-void	ft_add_node(t_stack **a, int val)
-{
-	t_node	*node;
+# include <stdarg.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include "../libft/libft.h"
 
-	node = ft_lstnew(val);
-	if (!node)
-		ft_error(*a);
-	ft_lstadd_back(&(*a)->top, node);
-	(*a)->bottom = ft_lstlast((*a)->top);
-	(*a)->size++;
-}
+int	ft_printf(char const *format, ...);
+int	ft_print_char(int c);
+int	ft_print_str(char *s);
+int	ft_print_int(int d);
+int	ft_print_un_int(unsigned int d);
+int	ft_print_hex(unsigned long n, char *base);
+int	ft_print_ptr(void *ptr);
+
+#endif

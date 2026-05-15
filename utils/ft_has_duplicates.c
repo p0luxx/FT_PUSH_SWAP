@@ -26,10 +26,7 @@ int	ft_has_duplicates(t_stack *a)
 		while (check)
 		{
 			if (current->value == check->value)
-			{
-				printf("tiene duplicados");
 				return (1);
-			}
 			check = check->next;
 		}
 		current = current->next;
