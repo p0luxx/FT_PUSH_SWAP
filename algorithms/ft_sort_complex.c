@@ -6,7 +6,7 @@
 /*   By: gorkgall <gorkgall@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 22:20:04 by smilitar          #+#    #+#             */
-/*   Updated: 2026/05/14 10:50:21 by gorkgall         ###   ########.fr       */
+/*   Updated: 2026/05/15 10:56:16 by polux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	process_bit(t_stack **a, t_stack **b, int bit, char *ops, int *c)
 			op_ra(a, ops, c);
 		i++;
 	}
-	while ((*b)->size > 0)
+	while ((*b) && (*b)->size > 0)
 		op_pa(a, b, ops, c);
 }
 
@@ -91,10 +91,11 @@ void	ft_sort_complex(t_stack **a)
 
 	if (!a || !(*a) || (*a)->size <= 1)
 		return ;
+	ops[0] = 0;
+	op_count = 0;
 	b = ft_init_stack('b');
 	if (!b)
 		return ;
-	op_count = 0;
 	normalize_stack(a);
 	bits = get_max_bits(get_max_value((*a)->top));
 	i = 0;
@@ -103,6 +104,6 @@ void	ft_sort_complex(t_stack **a)
 		process_bit(a, &b, i, ops, &op_count);
 		i++;
 	}
-	free(b);
+	free_stack(b);
 	print_ops(ops, op_count);
 }
