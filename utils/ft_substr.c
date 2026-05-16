@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../push_swap.h"
 
 static	size_t	ft_strnlen(char *s, size_t start, size_t len)
 {

@@ -6,9 +6,10 @@
 /*   By: gorkgall <gorkgall@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 22:19:49 by smilitar          #+#    #+#             */
-/*   Updated: 2026/05/15 18:18:35 by polux            ###   ########.fr       */
+/*   Updated: 2026/05/14 10:48:37 by gorkgall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../push_swap.h"
 
 int	get_index(t_node *stack, int value)
@@ -62,11 +63,7 @@ int	find_position(t_node *stack, int value)
 	return (-1);
 }
 
-/*
-** Rotación óptima: elige entre ra/rra en función de qué camino
-** es más corto. Idéntico al original pero extraído como inline helper.
-*/
-void	rotate_value_to_top(t_stack **s, int val, char n, char *ops, int *c)
+void	rotate_val_to_top_a(t_stack **s, int val, t_count *c, t_bench *bench)
 {
 	int	pos;
 	int	size;
@@ -79,8 +76,27 @@ void	rotate_value_to_top(t_stack **s, int val, char n, char *ops, int *c)
 	i = -1;
 	if (pos <= size / 2)
 		while (++i < pos)
-			(n == 'a') ? op_ra(s, ops, c) : op_rb(s, ops, c);
+			op_ra(s, c, bench);
 	else
 		while (++i < size - pos)
-			(n == 'a') ? op_rra(s, ops, c) : op_rrb(s, ops, c);
+			op_rra(s, c, bench);
+}
+
+void	rotate_val_to_top_b(t_stack **s, int val, t_count *c, t_bench *bench)
+{
+	int	pos;
+	int	size;
+	int	i;
+
+	pos = find_position((*s)->top, val);
+	if (pos < 0)
+		return ;
+	size = (*s)->size;
+	i = -1;
+	if (pos <= size / 2)
+		while (++i < pos)
+			op_rb(s, c, bench);
+	else
+		while (++i < size - pos)
+			op_rrb(s, c, bench);
 }

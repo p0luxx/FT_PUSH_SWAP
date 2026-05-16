@@ -6,77 +6,13 @@
 /*   By: gorkgall <gorkgall@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 22:20:04 by smilitar          #+#    #+#             */
-/*   Updated: 2026/05/15 18:17:49 by polux            ###   ########.fr       */
+/*   Updated: 2026/05/14 10:50:21 by gorkgall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../push_swap.h"
 
-void	normalize_stack(t_stack **stack)
-{
-	t_node	*current;
-	int		index;
-	int		*original;
-	int		i;
-	int		j;
-
-	i = 0;
-	current = (*stack)->top;
-	original = malloc(sizeof(int) * (*stack)->size);
-	while (current)
-	{
-		original[i++] = current->value;
-		current = current->next;
-	}
-	current = (*stack)->top;
-	i = 0;
-	while (current)
-	{
-		index = 0;
-		j = 0;
-		while (j < (*stack)->size)
-		{
-			if (original[j] < original[i])
-				index++;
-			j++;
-		}
-		current->value = index;
-		current = current->next;
-		i++;
-	}
-	free(original);
-}
-
-int	get_max_value(t_node *stack)
-{
-	t_node	*current;
-	int		max;
-
-	if (!stack)
-		return (0);
-	current = stack;
-	max = stack->value;
-	while (current)
-	{
-		if (current->value > max)
-			max = current->value;
-		current = current->next;
-	}
-	return (max);
-}
-
-int	get_max_bits(int max_num)
-{
-	int	bits;
-
-	bits = 0;
-	while ((max_num >> bits) != 0)
-		bits++;
-	return (bits);
-}
-
-void	process_bit(t_stack **a, t_stack **b, int bit, char *ops, int *c)
+static void	process_bit(t_stack **a, t_stack **b, int bit, t_count *c)
 {
 	int	size;
 	int	i;
@@ -86,37 +22,53 @@ void	process_bit(t_stack **a, t_stack **b, int bit, char *ops, int *c)
 	while (i < size)
 	{
 		if ((((*a)->top->value >> bit) & 1) == 0)
-			op_pb(a, b, ops, c);
+			op_pb(a, b, c, c->bench);
 		else
-			op_ra(a, ops, c);
+			op_ra(a, c, c->bench);
 		i++;
 	}
 	while ((*b)->size > 0)
-		op_pa(a, b, ops, c);
+		op_pa(a, b, c, c->bench);
 }
 
-void	ft_sort_complex(t_stack **a)
+static int	init_complex(t_count *count, t_stack **b, t_bench *bench)
+{
+	count->ops = malloc(sizeof(char) * 50000);
+	if (!count->ops)
+		return (0);
+	count->ops[0] = '\0';
+	count->op_count = 0;
+	count->bench = bench;
+	*b = ft_init_stack('b');
+	if (!(*b))
+	{
+		free(count->ops);
+		return (0);
+	}
+	return (1);
+}
+
+void	ft_sort_complex(t_stack **a, t_bench *bench)
 {
 	t_stack	*b;
+	t_count	count;
 	int		bits;
 	int		i;
-	char	ops[50000];
-	int		op_count;
 
 	if (!a || !(*a) || (*a)->size <= 1)
 		return ;
-	b = ft_init_stack('b');
-	if (!b)
+	if (!init_complex(&count, &b, bench))
 		return ;
-	op_count = 0;
 	normalize_stack(a);
 	bits = get_max_bits(get_max_value((*a)->top));
 	i = 0;
 	while (i < bits)
 	{
-		process_bit(a, &b, i, ops, &op_count);
+		process_bit(a, &b, i, &count);
 		i++;
 	}
+	bench->total_ops = count.op_count;
 	free(b);
-	print_ops(ops, op_count);
+	print_ops(count.ops, count.op_count);
+	free(count.ops);
 }

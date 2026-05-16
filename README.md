@@ -1,327 +1,252 @@
-# Push Swap 🔄
-
-Algoritmo de ordenamiento de stacks usando movimientos limitados. Implementación modular con soporte para múltiples estrategias de optimización.
-
-## 📋 Descripción
-
-Push Swap es un proyecto que requiere ordenar dos stacks (`a` y `b`) usando únicamente un conjunto limitado de operaciones:
-- `sa`, `sb`, `ss` - swap (intercambiar top)
-- `pa`, `pb` - push (mover top de un stack a otro)
-- `ra`, `rb`, `rr` - rotate (rotar hacia arriba)
-- `rra`, `rrb`, `rrr` - reverse rotate (rotar hacia abajo)
-
-El objetivo es minimizar el número de movimientos necesarios para ordenar el stack `a`.
+*Este proyecto ha sido creado como parte del currículo de 42 por smilitar, gorkgall.*
 
 ---
 
-## 📁 Estructura del Proyecto
+# ft_push_swap 🔄
 
-### Organización de directorios
-
-```
-push_swap/
-├── push_swap.c              # Main (orquestación)
-├── push_swap.h              # Header principal con estructuras
-├── ft_flags.c               # Parseo y validación de flags/algoritmos
-├── ft_error.c               # Gestión de errores
-├── ft_validate_inputs.c     # Validación y parseo de argumentos
-│
-├── list_utils/              # Operaciones de lista doblemente enlazada
-│   ├── ft_lstnew.c          # Crear nuevo nodo
-│   ├── ft_lstadd_back.c     # Agregar al final
-│   ├── ft_lstadd_front.c    # Agregar al inicio
-│   ├── ft_lstlast.c         # Obtener último nodo
-│   ├── ft_lstsize.c         # Tamaño de lista
-│   ├── ft_lstdelone.c       # Eliminar un nodo
-│   ├── ft_lstclear.c        # Limpiar lista completa
-│   ├── ft_lstiter.c         # Iterar sobre lista
-│   └── ft_lstmap.c          # Mapear función sobre lista
-│
-├── utils/                   # Utilidades generales
-│   ├── ft_atoi.c            # String → int
-│   ├── ft_split.c           # Split de strings
-│   ├── ft_strncmp.c         # Comparación de strings
-│   ├── ft_is_num.c          # Validar si es número
-│   └── ft_check_argv.c      # Validaciones auxiliares
-│
-├── DOCS/                    # Documentación
-│   └── push_swap_data_structures.svg  # Diagrama de estructuras
-│
-├── Makefile                 # Compilación
-└── README.md                # Este archivo
-```
+Ordenamiento de pilas con operaciones limitadas. Implementación en C con múltiples estrategias adaptativas según el nivel de desorden del input.
 
 ---
 
-## 🏗️ Estructuras de Datos
+## Descripción
 
-### `t_node` - Nodo del stack
+**ft_push_swap** es un proyecto del currículo de 42 cuyo objetivo es ordenar una lista de números enteros utilizando únicamente dos pilas (`a` y `b`) y un conjunto restringido de operaciones. El reto no es solo ordenar, sino hacerlo en el **mínimo número de movimientos posible**.
 
-```c
-typedef struct s_node
-{
-    int     value;    /* Valor original del input */
-    int     norm;     /* Índice normalizado (0..n-1) */
-    int     target;   /* Posición destino tras ordenamiento */
-    int     cost_a;   /* Rotaciones necesarias en stack a */
-    int     cost_b;   /* Rotaciones necesarias en stack b */
-    s_node  *next;    /* Puntero al siguiente */
-    s_node  *prev;    /* Puntero al anterior */
-}   t_node;
-```
+El programa recibe una secuencia de enteros como argumentos y produce por la salida estándar la lista de operaciones necesarias para dejar la pila `a` completamente ordenada (de menor a mayor, con el menor en el tope) y la pila `b` vacía.
 
-### `t_stack` - Stack (lista doblemente enlazada)
+### Operaciones permitidas
 
-```c
-typedef struct s_stack
-{
-    t_node  *top;     /* Cima del stack */
-    t_node  *bottom;  /* Base del stack */
-    int     size;     /* Número de elementos */
-    char    name;     /* Identificador: 'a' o 'b' */
-}   t_stack;
-```
+| Operación | Efecto |
+|-----------|--------|
+| `sa` / `sb` / `ss` | Intercambia los dos primeros elementos del tope de `a`, `b`, o ambos simultáneamente |
+| `pa` / `pb` | Mueve el elemento del tope de `b` → `a`, o de `a` → `b` |
+| `ra` / `rb` / `rr` | Rota hacia arriba: el tope pasa al fondo en `a`, `b`, o ambos |
+| `rra` / `rrb` / `rrr` | Rota hacia abajo: el fondo pasa al tope en `a`, `b`, o ambos |
 
-### `t_flags` - Selector de algoritmo
+### Características principales
 
-```c
-typedef struct s_flags
-{
-    int simple;       /* Flag: usar Insertion Sort */
-    int medium;       /* Flag: usar Insertion Chunked */
-    int complex;      /* Flag: usar Radix LSD */
-    int adaptive;     /* Flag: elegir automáticamente */
-    int bench;        /* Flag: benchmark mode */
-}   t_flags;
-```
+- Implementación modular en C (norminette 42 compliant)
+- Tres algoritmos de ordenamiento con complejidades distintas
+- Modo adaptativo que selecciona el algoritmo óptimo según el grado de desorden medido
+- Modo benchmark (`--bench`) para analizar métricas de rendimiento por estrategia
+- Validación robusta de entradas: overflow, duplicados, argumentos inválidos
+- Lista doblemente enlazada como estructura de datos central para acceso O(1) a tope y fondo
 
 ---
 
-## 🔧 Algoritmos Disponibles
+## Instrucciones
 
-| Nombre | Flag | Complejidad | Descripción |
-|--------|------|-------------|-------------|
-| **Simple** | `--simple` | O(n²) | Insertion sort clásico. Fácil de implementar. |
-| **Medium** | `--medium` | O(n√n) | Insertion chunked. Balancea rotaciones. |
-| **Complex** | `--complex` | O(n log n) | Radix LSD. Óptimo para grandes datasets. |
-| **Adaptive** | `--adaptive` (default) | variable | Selecciona automáticamente según desorden. |
-| **Benchmark** | `--bench` | - | Modo profiling: mide performance de cada algoritmo. |
+### Requisitos
 
-### Lógica Adaptativa
-
-El modo `--adaptive` selecciona automáticamente:
-- **disorder < 0.1** → `--simple`
-- **disorder < 0.4** → `--medium`
-- **disorder ≥ 0.4** → `--complex`
-
----
-
-## 🚀 Uso
+- Compilador `gcc` con soporte para C99 o superior
+- Sistema Unix/Linux (macOS o Linux)
+- `make`
 
 ### Compilación
 
 ```bash
-make              # Compilar
-make clean        # Limpiar .o
-make fclean       # Limpiar todo
-make re           # Recompilar
+# Compilar el programa
+make
+
+# Limpiar archivos objeto
+make clean
+
+# Limpiar todo (incluido el ejecutable)
+make fclean
+
+# Recompilar desde cero
+make re
 ```
 
 ### Ejecución
 
-#### Forma básica (adaptive mode)
 ```bash
+# Uso básico (modo adaptativo por defecto)
 ./push_swap 3 1 2
 ./push_swap "5 2 8 1 9"
-```
 
-#### Con algoritmo específico
-```bash
+# Especificar algoritmo manualmente
 ./push_swap --simple 3 1 2
-./push_swap --complex "5 2 8 1 9"
-./push_swap --bench 3 1 2
-```
+./push_swap --medium "5 2 8 1 9"
+./push_swap --complex 42 7 3 19 1
 
-#### Con dos flags (selector + benchmark)
-```bash
+# Modo benchmark (imprime estadísticas por stderr)
+./push_swap --bench 3 1 2
 ./push_swap --simple --bench 3 1 2
 ```
 
----
+### Verificación con checker
 
-## ✅ Estado del Proyecto
-
-### Parte 1: Validación de Inputs y Creación del Stack A ✅ COMPLETADA
-
-La primera parte del proyecto se ha completado exitosamente:
-
-#### Implementado:
-- ✅ **Parseo de flags** (`ft_flags.c`)
-  - Detección de flags válidos
-  - Selección de algoritmo
-  - Validación de combinaciones de flags
-  - Soporte para `--simple`, `--medium`, `--complex`, `--adaptive`, `--bench`
-
-- ✅ **Validación de argumentos** (`ft_validate_inputs.c`)
-  - Parseo de argumentos individuales y espaciados
-  - Conversión a números con detección de overflow (`ft_atoi.c`)
-  - Validación de números válidos (`ft_is_num.c`)
-  - Creación del stack `a` con nodos (`ft_lstnew.c`, `ft_lstadd_back.c`)
-  - Detección de duplicados (`ft_has_duplicates()`)
-
-- ✅ **Gestión de errores** (`ft_error.c`)
-  - Errores de validación con salida estándar
-
-- ✅ **Utilidades**
-  - Split de strings (`ft_split.c`)
-  - Comparación de strings (`ft_strncmp.c`)
-  - Lista doblemente enlazada completa (`list_utils/`)
-
-#### Norminette: ✅ PASS
-Todo el código ha pasado las pruebas de norminette (excepto áreas marcadas como aún en desarrollo).
-
-#### Archivo Makefile actualizado
-Se ha corregido para compilar correctamente todos los módulos.
-
----
-
-## 🗺️ Árbol de Funciones
-
-### Árbol de llamadas actual
-
-```
-main()
-├─ ft_init_flags()              ✅ HECHO | 📏 PASS
-└─ ft_parse_argv()              ✅ HECHO | 📏 PASS
-   ├─ ft_is_flag()              ✅ HECHO | 📏 PASS
-   ├─ ft_select_algorithm()     ✅ HECHO | 📏 PASS
-   ├─ ft_validate_single_algorithm() ✅ HECHO | 📏 PASS
-   ├─ ft_handle_arg()           ✅ HECHO | 📏 PASS
-   │  ├─ ft_add_single()        ✅ HECHO | 📏 PASS
-   │  ├─ ft_add_split()         ✅ HECHO | 📏 PASS
-   │  ├─ ft_atoi()              ✅ HECHO | 📏 PASS
-   │  ├─ ft_split()             ✅ HECHO | 📏 PASS
-   │  └─ ft_lstnew()            ✅ HECHO | 📏 PASS
-   └─ ft_has_duplicates()       ✅ HECHO | 📏 PASS
-```
-
----
-
-## 📊 Estado por Archivo
-
-| Archivo | Estado | Norminette | Notas |
-|---------|--------|-----------|-------|
-| `push_swap.c` | ✅ COMPLETO | 📏 PASS | Main orquestador |
-| `push_swap.h` | ✅ COMPLETO | 📏 PASS | Header con structs |
-| `ft_flags.c` | ✅ COMPLETO | 📏 PASS | Flags y algoritmos |
-| `ft_error.c` | ✅ COMPLETO | 📏 PASS | Gestión de errores |
-| `ft_validate_inputs.c` | ✅ COMPLETO | 📏 PASS | Parseo de argumentos |
-| `list_utils/*.c` | ✅ COMPLETO | 📏 PASS | 9 funciones de lista |
-| `utils/*.c` | ✅ COMPLETO | 📏 PASS | 5 utilidades generales |
-
----
-
-## 📝 Próximas Fases
-
-### Fase 2: Normalización e Índices
-- Mapeo de valores a índices 0..n-1
-- Cálculo de normalización en la estructura del nodo
-
-### Fase 3: Algoritmos de Ordenamiento
-- [ ] Implementar **Insertion Sort Simple** (O(n²))
-- [ ] Implementar **Insertion Chunked** (O(n√n))
-- [ ] Implementar **Radix LSD** (O(n log n))
-
-### Fase 4: Optimización
-- [ ] Cálculo de costos y targets
-- [ ] Selección inteligente de movimientos
-
-### Fase 5: Testing
-- [ ] Suite de tests para validación de inputs
-- [ ] Casos límite (números grandes, negativos, ceros)
-- [ ] Benchmark comparativo de algoritmos
-
----
-
-## 🛠️ Características Implementadas
-
-### ✅ Validación Robusta
-- Detección de argumentos inválidos
-- Manejo de overflow en conversión a int
-- Validación de duplicados
-- Soporte para múltiples formatos de entrada
-
-### ✅ Sistema de Flags Flexible
-- Hasta 2 flags simultáneamente
-- Validación de combinaciones válidas
-- Modo adaptativo por defecto
-- Bench mode para profiling
-
-### ✅ Estructura de Datos Eficiente
-- Lista doblemente enlazada para O(1) acceso front/back
-- Nodos con información de costo y target
-- Stack con identificador para debugging
-
-### ✅ Código Limpio
-- Modularización clara
-- Funciones pequeñas y enfocadas
-- Cumplimiento de norminette
-- Documentación inline
-
----
-
-## 📚 Documentación
-
-- **DOCS/push_swap_data_structures.svg**: Diagrama visual de las estructuras de datos y relaciones
-
----
-
-## 👥 Autores
-
-- **@smilitar** - Parseo, flags, validación
-- **@gorkgall** - Estructuras, lista enlazada, control general
-
----
-
-## 📄 Normas
-
-Este proyecto sigue la **norminette 42** (estándar de código de 42 Barcelona).
+El repositorio incluye el binario `checker_linux` provisto por 42 para validar que la secuencia de operaciones produce un stack correctamente ordenado:
 
 ```bash
-# Verificar cumplimiento
-norminette
+ARG="3 2 1 4 5"
+./push_swap $ARG | ./checker_linux $ARG
+# Output esperado: "OK"
+```
+
+### Testing automatizado
+
+```bash
+# Script de tests incluido
+bash test.sh
+bash test_push_swap.sh
 ```
 
 ---
 
-## 🔍 Testing
+## Algoritmos: Explicación y Justificación
 
-Tests aún por implementar (Fase 5). Placeholder para casos límite:
-- Números negativos
-- Números grandes (INT_MIN, INT_MAX)
-- Stack ya ordenado
-- Stack ordenado al revés
-- Duplicados
-- Argumentos inválidos
+El proyecto implementa tres estrategias distintas de ordenamiento, seleccionables mediante flags. La elección del algoritmo adecuado depende del tamaño del input y de su grado de desorden.
 
----
+### 1. Insertion Sort Simple (`--simple`) — O(n²)
 
-## 📖 Notas Técnicas
+**Descripción:** Inserta cada elemento de la pila `b` en su posición correcta dentro de la pila `a`, rotando hasta encontrar el hueco adecuado.
 
-### Por qué lista doblemente enlazada?
-- **Rotaciones**: Necesitamos acceso eficiente a top y bottom
-- **Reverse rotate**: Necesitamos recorrer hacia atrás
-- **Visualización**: Facilita debugging
+**Justificación:** Para inputs pequeños (n ≤ ~10 elementos), el overhead de algoritmos más complejos no compensa. El insertion sort, aunque cuadrático en el caso general, produce secuencias de operaciones compactas cuando los elementos están casi ordenados o cuando n es reducido. Su implementación es directa y verificable, lo que facilita la depuración.
 
-### Por qué "norm" (índice normalizado)?
-- Permite usar Radix Sort basado en bits
-- Facilita cálculos de distancia
-- Reutilizable en múltiples algoritmos
-
-### Overflow handling
-`ft_atoi()` detecta overflow comparando contra INT_MIN/INT_MAX antes de aplicar operaciones.
+**Cuándo usarlo:** Inputs pequeños o con desorden menor al 20%.
 
 ---
 
-**Última actualización:** 2 de Mayo de 2026
-**Estado actual:** Fase 1 ✅ Completa
+### 2. Insertion Chunked (`--medium`) — O(n√n)
+
+**Descripción:** Divide el input en chunks (bloques de tamaño ~√n) y los transfiere a `b` en orden de chunk. Luego los reinserta en `a` con lógica de rotación minimizada eligiendo en cada paso el elemento que requiere menos movimientos.
+
+**Justificación:** El truco fundamental de este algoritmo es que, en lugar de insertar elemento a elemento (O(n²)), agrupa elementos cercanos en su posición final. Al procesar grupos, se amortiza el coste de las rotaciones: mover varios elementos del mismo chunk en un solo recorrido de pila reduce drásticamente el número total de operaciones respecto al insertion sort puro. El tamaño de chunk de √n es el balance empírico óptimo entre el número de chunks (rotaciones en `a`) y el tamaño de cada chunk (rotaciones en `b`).
+
+**Cuándo usarlo:** Inputs de tamaño medio (n entre 50 y 200), desorden moderado.
+
+---
+
+### 3. Radix LSD (`--complex`) — O(n log n)
+
+**Descripción:** Normaliza los valores a índices 0..n-1 y los ordena bit a bit de menos significativo a más significativo (Least Significant Digit). En cada pasada, los elementos con el bit actual a 0 permanecen en `a` y los que tienen el bit a 1 se mueven a `b`; luego se reinsertan.
+
+**Justificación:** Radix LSD es el algoritmo con mejor escalabilidad teórica para este problema. Al operar sobre representaciones binarias de los índices normalizados, el número de pasadas es log₂(n), y cada pasada cuesta O(n) operaciones. Para n = 500, esto supone ~9 pasadas de 500 movimientos cada una (≈ 4500 operaciones), muy por debajo del límite impuesto por el evaluador de 42. La normalización previa (mapeo de valores arbitrarios a índices contiguos) elimina la dependencia del rango de los valores y hace el algoritmo predecible independientemente del input.
+
+**Cuándo usarlo:** Inputs grandes (n ≥ 200), cualquier nivel de desorden. Es el algoritmo más robusto para el caso general.
+
+---
+
+### 4. Modo Adaptativo (`--adaptive`, comportamiento por defecto)
+
+El modo adaptativo mide el **grado de desorden** del input antes de decidir qué estrategia usar. El desorden se calcula como la proporción de inversiones respecto al máximo posible: un array ordenado tiene desorden 0.0, uno completamente invertido tiene desorden 1.0.
+
+```
+disorder < 0.2  →  --simple   (pocos intercambios necesarios)
+disorder < 0.5  →  --medium   (desorden moderado, chunking eficiente)
+disorder ≥ 0.5  →  --complex  (alto desorden, Radix es óptimo)
+```
+
+**Justificación:** No existe un único algoritmo óptimo para todos los casos. Un array casi ordenado pagará un coste innecesario con Radix (que no aprovecha el orden parcial existente), mientras que un insertion sort sobre 500 elementos completamente desordenados produciría decenas de miles de operaciones. El modo adaptativo combina lo mejor de cada estrategia tomando una decisión informada en tiempo de ejecución.
+
+---
+
+## Estructura del Proyecto
+
+```
+ft_push_swap/
+├── push_swap.c              # Punto de entrada y orquestación
+├── push_swap.h              # Header: estructuras, prototipos
+├── ft_flags.c               # Parseo y validación de flags
+├── ft_error.c               # Gestión de errores y liberación de memoria
+├── ft_validate_inputs.c     # Validación y parseo de argumentos
+├── ft_bench.c               # Métricas de benchmark
+│
+├── algorithms/              # Implementaciones de los tres algoritmos
+│   ├── ft_sort_simple.c
+│   ├── ft_sort_medium.c
+│   ├── ft_sort_complex.c
+│   └── ft_sort_adaptive.c
+│
+├── moves/                   # Operaciones primitivas sobre pilas
+│   ├── ft_swap.c            # sa, sb, ss
+│   ├── ft_push.c            # pa, pb
+│   ├── ft_rotate.c          # ra, rb, rr
+│   └── ft_rrotate.c         # rra, rrb, rrr
+│
+├── list_utils/              # Lista doblemente enlazada
+│   ├── ft_lstnew.c
+│   ├── ft_lstadd_back.c
+│   ├── ft_lstadd_front.c
+│   ├── ft_lstlast.c
+│   ├── ft_lstsize.c
+│   ├── ft_lstdelone.c
+│   ├── ft_lstclear.c
+│   ├── ft_lstiter.c
+│   └── ft_lstmap.c
+│
+├── utils/                   # Utilidades generales
+│   ├── ft_atoi.c            # Conversión string → int con detección de overflow
+│   ├── ft_split.c           # División de strings
+│   ├── ft_strncmp.c
+│   ├── ft_is_num.c
+│   └── ft_check_argv.c
+│
+├── ft_printf/               # Librería ft_printf (dependencia interna)
+├── DOCS/                    # Diagrama de estructuras de datos (SVG)
+├── Makefile
+├── checker_linux            # Checker oficial de 42 (binario Linux)
+└── README.md
+```
+
+---
+
+## Ejemplos de Uso
+
+```bash
+# Verificar que 3 números se ordenan
+$ ./push_swap 3 1 2
+
+$ ARG="4 67 3 87 23"; ./push_swap --complex $ARG | ./checker_linux $ARG
+
+# Contar operaciones para 100 números aleatorios
+$ shuf -i 0-9999 -n 500 > args.txt ; ./push_swap --bench $(cat args.txt) 2> bench.txt | ./checker_linux $(cat args.txt)
+
+$ cat bench.txt 
+
+# Benchmark completo
+$ ./push_swap --bench --complex 9 3 7 1 5
+[bench] disorder:   70.0%
+[bench] strategy:   Complex
+[bench] total_ops:  25
+[bench] sa:  0  sb:  0  ss:  0  pa:  10  pb:  10
+[bench] ra:  5  rb:  0  rr:  0  rra:  0  rrb:  0  rrr:  0
+```
+
+---
+
+## Recursos
+
+### Documentación y referencias
+
+- [The Push Swap Project — Medium (Jamie Dawson)](https://medium.com/@jamiedawson/push-swap-a-project-about-sorting-algorithms-d0b7b4f1c11b) — Explicación general del proyecto y estrategias comunes
+- [Visualizador de Push Swap](https://github.com/o-reo/push_swap_visualizer) — Herramienta para visualizar las operaciones gráficamente
+- [Radix Sort — Wikipedia](https://en.wikipedia.org/wiki/Radix_sort) — Base teórica del algoritmo Radix LSD
+- [Counting Inversions — GeeksForGeeks](https://www.geeksforgeeks.org/counting-inversions/) — Fundamento para la métrica de desorden adaptativo
+- [Norminette 42](https://github.com/42School/norminette) — Herramienta de validación del estilo de código de 42
+
+### Uso de Inteligencia Artificial
+
+Durante el desarrollo de este proyecto se utilizó Claude (Anthropic) como herramienta de apoyo en las siguientes áreas:
+
+- **Diseño de la estructura de datos:** Se consultó sobre el uso de lista doblemente enlazada vs. arrays para implementar las pilas, evaluando los trade-offs de cada opción en términos de complejidad de rotación y acceso a tope/fondo.
+- **Elección y análisis de algoritmos:** Se utilizó IA para contrastar las complejidades del insertion sort, chunking y Radix LSD, y para razonar sobre los umbrales óptimos del modo adaptativo.
+- **Depuración:** Se consultaron casos límite relacionados con overflow en `ft_atoi`, manejo de entradas negativas y detección de duplicados.
+- **Generación del README:** Este documento fue redactado con ayuda de Claude a partir del análisis del código fuente del repositorio.
+
+La IA no generó código fuente directamente incluido en el proyecto; su rol fue consultivo y de documentación.
+
+---
+
+## Autores
+
+| Login | Área principal |
+|-------|---------------|
+| **smilitar** | Parseo de flags, validación de inputs, orquestación |
+| **gorkgall** | Estructuras de datos, lista enlazada, control general |
+
+---
+
+*Proyecto desarrollado en 42 Barcelona · Mayo 2026 · Norminette ✅*

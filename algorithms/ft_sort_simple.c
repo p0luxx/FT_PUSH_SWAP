@@ -6,11 +6,11 @@
 /*   By: gorkgall <gorkgall@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 13:13:02 by gorkgall          #+#    #+#             */
-/*   Updated: 2026/05/15 18:20:47 by polux            ###   ########.fr       */
+/*   Updated: 2026/05/12 14:18:24 by gorkgall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../push_swap.h"
 
 static int	find_min_pos(t_node *stack)
 {
@@ -38,68 +38,61 @@ static int	find_min_pos(t_node *stack)
 	return (min_pos);
 }
 
-static void	rotate_to_top(t_stack **a, int pos, int size, char *ops, int *count)
+static void	rotate_to_top(t_stack **a, t_count *c, t_bench *bench)
 {
+	int	pos;
+	int	size;
 	int	up;
 	int	down;
 	int	i;
 
+	pos = find_min_pos((*a)->top);
 	if (pos <= 0)
 		return ;
+	size = (*a)->size;
 	up = pos;
 	down = size - pos;
 	i = 0;
 	if (up <= down)
 		while (i++ < up)
-			op_ra(a, ops, count);
+			op_ra(a, c, bench);
 	else
 		while (i++ < down)
-			op_rra(a, ops, count);
+			op_rra(a, c, bench);
 }
 
-static void	push_all_to_b(t_stack **a, t_stack **b, char *ops, int *count)
+static void	push_all_to_b(t_stack **a, t_stack **b, t_count *c, t_bench *bench)
 {
-	int	min_pos;
-	int	size_a;
-
 	while ((*a) && (*a)->size > 1)
 	{
-		size_a = (*a)->size;
-		min_pos = find_min_pos((*a)->top);
-		if (min_pos < 0)
-			break ;
-		rotate_to_top(a, min_pos, size_a, ops, count);
-		op_pb(a, b, ops, count);
+		rotate_to_top(a, c, bench);
+		op_pb(a, b, c, bench);
 	}
 }
 
-void	ft_sort_simple(t_stack **a)
+void	ft_sort_simple(t_stack **a, t_bench *bench)
 {
 	t_stack	*b;
-	char	*ops;
-	int		op_count;
+	t_count	count;
 
 	if (!a || !(*a) || (*a)->size <= 1)
 		return ;
-
-	/* Evitamos stack overflow para +100,000 strings */
-	ops = malloc(2000000);
-	if (!ops)
+	count.ops = malloc(sizeof(char) * 10000);
+	if (!count.ops)
 		return ;
-	ops[0] = '\0';
-	op_count = 0;
-
+	count.ops[0] = '\0';
+	count.op_count = 0;
 	b = ft_init_stack('b');
 	if (!b)
 	{
-		free(ops);
+		free(count.ops);
 		return ;
 	}
-	push_all_to_b(a, &b, ops, &op_count);
+	push_all_to_b(a, &b, &count, bench);
 	while (b && b->size > 0)
-		op_pa(a, &b, ops, &op_count);
-
+		op_pa(a, &b, &count, bench);
 	free_stack(b);
-	print_ops(ops, op_count);
-	free(ops);
+	bench->total_ops = count.op_count;
+	print_ops(count.ops, count.op_count);
+	free(count.ops);
 }

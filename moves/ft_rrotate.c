@@ -12,7 +12,7 @@
 
 #include "../push_swap.h"
 
-void	op_rra(t_stack **a, char *ops, int *count)
+void	op_rra(t_stack **a, t_count *c, t_bench *bench)
 {
 	t_node	*last;
 
@@ -27,10 +27,11 @@ void	op_rra(t_stack **a, char *ops, int *count)
 	if ((*a)->top)
 		(*a)->top->prev = last;
 	(*a)->top = last;
-	record_operation(ops, count, "rra");
+	record_operation(c->ops, &c->op_count, "rra");
+	bench->rra++;
 }
 
-void	op_rrb(t_stack **b, char *ops, int *count)
+void	op_rrb(t_stack **b, t_count *c, t_bench *bench)
 {
 	t_node	*last;
 
@@ -45,16 +46,20 @@ void	op_rrb(t_stack **b, char *ops, int *count)
 	if ((*b)->top)
 		(*b)->top->prev = last;
 	(*b)->top = last;
-	record_operation(ops, count, "rrb");
+	record_operation(c->ops, &c->op_count, "rrb");
+	bench->rrb++;
 }
 
-void	op_rrr(t_stack **a, t_stack **b, char *ops, int *count)
+void	op_rrr(t_stack **a, t_stack **b, t_count *c, t_bench *bench)
 {
-	op_rra(a, ops, count);
-	op_rrb(b, ops, count);
-	if (*count >= 2)
+	op_rra(a, c, bench);
+	op_rrb(b, c, bench);
+	if (c->op_count >= 2)
 	{
-		*count -= 2;
-		record_operation(ops, count, "rrr");
+		c->op_count -= 2;
+		bench->rra--;
+		bench->rrb--;
+		record_operation(c->ops, &c->op_count, "rrr");
+		bench->rrr++;
 	}
 }

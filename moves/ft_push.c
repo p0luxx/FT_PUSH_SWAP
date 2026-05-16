@@ -11,11 +11,11 @@
 /* ************************************************************************** */
 #include "../push_swap.h"
 
-void	op_pa(t_stack **a, t_stack **b, char *ops, int *count)
+void	op_pa(t_stack **a, t_stack **b, t_count *c, t_bench *bench)
 {
 	t_node	*temp;
 
-	if (!b || !(*b) || !a || !(*a))
+	if (!b || !(*b) || !a || !(*a) || (*b)->size == 0)
 		return ;
 	temp = (*b)->top;
 	(*b)->top = (*b)->top->next;
@@ -32,14 +32,15 @@ void	op_pa(t_stack **a, t_stack **b, char *ops, int *count)
 		(*a)->bottom = temp;
 	(*a)->top = temp;
 	(*a)->size++;
-	record_operation(ops, count, "pa");
+	record_operation(c->ops, &c->op_count, "pa");
+	bench->pa++;
 }
 
-void	op_pb(t_stack **a, t_stack **b, char *ops, int *count)
+void	op_pb(t_stack **a, t_stack **b, t_count *c, t_bench *bench)
 {
 	t_node	*temp;
 
-	if (!a || !(*a) || !b || !(*b))
+	if (!a || !(*a) || !b || !(*b) || (*a)->size == 0)
 		return ;
 	temp = (*a)->top;
 	(*a)->top = (*a)->top->next;
@@ -56,5 +57,6 @@ void	op_pb(t_stack **a, t_stack **b, char *ops, int *count)
 		(*b)->bottom = temp;
 	(*b)->top = temp;
 	(*b)->size++;
-	record_operation(ops, count, "pb");
+	record_operation(c->ops, &c->op_count, "pb");
+	bench->pb++;
 }

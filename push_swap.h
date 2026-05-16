@@ -14,7 +14,7 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-#include "ft_printf/ft_printf/ft_printf.h"
+# include "ft_printf/ft_printf/ft_printf.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
@@ -68,13 +68,32 @@ typedef struct s_bench
 	int		rrr;
 }	t_bench;
 
+/* ── count operations ── */
+
+typedef struct s_count
+{
+	char	*ops;
+	int		op_count;
+	t_bench	*bench;
+}	t_count;
+
 /* ── flags ── */
+
 typedef struct s_parse_ctx
 {
 	t_flags	*f;
 	int		flag_count;
 	char	*flag_copy;
 }	t_parse_ctx;
+
+/* ── checker operation context ── */
+
+typedef struct s_ctx
+{
+	t_count	c;
+	t_bench	bench;
+	char	buf[16];
+}	t_ctx;
 
 /* ── handle errors ── */
 void	ft_error(t_stack *a);
@@ -128,19 +147,25 @@ void	ft_sa(t_stack *a);
 void	ft_sb(t_stack *b);
 void	ft_ss(t_stack *a, t_stack *b);
 
+/* ── swap operations ── */
+
+void	op_sa(t_stack **a, t_count *c, t_bench *bench);
+void	op_sb(t_stack **b, t_count *c, t_bench *bench);
+void	op_ss(t_stack **a, t_stack **b, t_count *c, t_bench *bench);
+
 /* ── push operations ── */
-void	op_pa(t_stack **a, t_stack **b, char *ops, int *count);
-void	op_pb(t_stack **a, t_stack **b, char *ops, int *count);
+void	op_pa(t_stack **a, t_stack **b, t_count *c, t_bench *bench);
+void	op_pb(t_stack **a, t_stack **b, t_count *c, t_bench *bench);
 
 /* ── rotate operations ── */
-void	op_ra(t_stack **a, char *ops, int *count);
-void	op_rb(t_stack **b, char *ops, int *count);
-void	op_rr(t_stack **a, t_stack **b, char *ops, int *count);
+void	op_ra(t_stack **a, t_count *c, t_bench *bench);
+void	op_rb(t_stack **b, t_count *c, t_bench *bench);
+void	op_rr(t_stack **a, t_stack **b, t_count *c, t_bench *bench);
 
 /* ── reverse rotate operations ── */
-void	op_rra(t_stack **a, char *ops, int *count);
-void	op_rrb(t_stack **b, char *ops, int *count);
-void	op_rrr(t_stack **a, t_stack **b, char *ops, int *count);
+void	op_rra(t_stack **a, t_count *c, t_bench *bench);
+void	op_rrb(t_stack **b, t_count *c, t_bench *bench);
+void	op_rrr(t_stack **a, t_stack **b, t_count *c, t_bench *bench);
 
 /* ── stack helpers ── */
 t_stack	*stack_pop(t_stack **stack);
@@ -151,20 +176,24 @@ void	print_ops(char *ops, int count);
 
 /* ── sort algorithms ── */
 
-void	ft_sort_simple(t_stack **a);
-void	ft_sort_medium(t_stack **a);
-void	ft_sort_complex(t_stack **a);
-void    ft_sort_adaptive(t_stack **a, t_bench *bench);
+void	ft_sort_simple(t_stack **a, t_bench *bench);
+void	ft_sort_medium(t_stack **a, t_bench *bench);
+void	ft_sort_complex(t_stack **a, t_bench *bench);
+void	ft_sort_adaptive(t_stack **a, t_bench *bench);
 
 /* ── sort utils algorithms ── */
 
-int			get_index(t_node *stack, int value);
+int		get_index(t_node *stack, int value);
 int		find_max(t_node *stack);
-void	rotate_value_to_top(t_stack **s, int val, char n, char *ops, int *c);
+void	rotate_val_to_top_b(t_stack **s, int val, t_count *c, t_bench *bench);
+void	rotate_val_to_top_a(t_stack **s, int val, t_count *c, t_bench *bench);
 int		ft_sqrt(int n);
+int		get_max_bits(int max_num);
+int		get_max_value(t_node *stack);
+void	normalize_stack(t_stack **stack);
 
 /* ── validate bench ── */
 
-void    ft_init_bench(t_bench *bench, t_stack *a, t_flags *f);
+void	ft_init_bench(t_bench *bench, t_stack *a, t_flags *f);
 
 #endif
