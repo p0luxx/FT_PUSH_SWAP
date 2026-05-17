@@ -6,7 +6,7 @@
 /*   By: gorkgall <gorkgall@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 22:20:04 by smilitar          #+#    #+#             */
-/*   Updated: 2026/05/14 10:50:21 by gorkgall         ###   ########.fr       */
+/*   Updated: 2026/05/17 15:56:31 by polux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	ft_sort_complex(t_stack **a, t_bench *bench)
 		return ;
 	if (!init_complex(&count, &b, bench))
 		return ;
+	if ((*a)->size <= 5)
+		return (ft_sort_small(a, bench));
 	normalize_stack(a);
 	bits = get_max_bits(get_max_value((*a)->top));
 	i = 0;

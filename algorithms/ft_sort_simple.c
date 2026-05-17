@@ -6,7 +6,7 @@
 /*   By: gorkgall <gorkgall@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 13:13:02 by gorkgall          #+#    #+#             */
-/*   Updated: 2026/05/12 14:18:24 by gorkgall         ###   ########.fr       */
+/*   Updated: 2026/05/17 15:57:54 by polux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ void	ft_sort_simple(t_stack **a, t_bench *bench)
 	count.ops = malloc(sizeof(char) * 10000);
 	if (!count.ops)
 		return ;
+	if ((*a)->size <= 5)
+		return (ft_sort_small(a, bench));
 	count.ops[0] = '\0';
 	count.op_count = 0;
 	b = ft_init_stack('b');
