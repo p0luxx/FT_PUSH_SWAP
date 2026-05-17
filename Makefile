@@ -44,7 +44,7 @@ MOVES_SRCS  = $(addprefix moves/, \
 ALGO_SRCS   = $(addprefix algorithms/, \
               ft_sort_simple.c ft_sort_medium.c ft_sort_medium2.c  \
               ft_sort_complex.c ft_sort_adaptative.c ft_sort_medium3.c \
-              ft_sort_complex2.c)
+              ft_sort_complex2.c ft_sort_small.c)
 
 PRINTF_MAIN = ft_printf/ft_printf.c
 

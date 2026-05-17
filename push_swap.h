@@ -6,7 +6,7 @@
 /*   By: gorkgall <gorkgall@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 12:03:31 by gorkgall          #+#    #+#             */
-/*   Updated: 2026/05/12 14:15:34 by gorkgall         ###   ########.fr       */
+/*   Updated: 2026/05/17 15:08:27 by polux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ void	ft_sort_simple(t_stack **a, t_bench *bench);
 void	ft_sort_medium(t_stack **a, t_bench *bench);
 void	ft_sort_complex(t_stack **a, t_bench *bench);
 void	ft_sort_adaptive(t_stack **a, t_bench *bench);
-
+void	ft_sort_small(t_stack **a, t_bench *bench);
 /* ── sort utils algorithms ── */
 
 int		get_index(t_node *stack, int value);
